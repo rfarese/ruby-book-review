@@ -1,9 +1,3 @@
-# Acceptance Criteria:
-# * unauthenticated users cant delete an account (no deleting other users profiles)
-# * There should be a "Cancel My Account" link on the Edit User page
-# * After clicking on the "Delete My Account" link, the user should receive a notice asking them if they are sure that they'd like to delete their account.  This is to prevent people from accidentally deleting their account
-# * If they are sure they'd like to delete the account, then the user will receive a notice saying "Your account has successfully been deleted."
-
 require 'rails_helper'
 
 RSpec.feature "User deletes account", type: :feature do
@@ -23,10 +17,11 @@ RSpec.feature "User deletes account", type: :feature do
     expect(page).to_not have_content("Edit Profile")
   end
 
-  scenario "authenticated user views the link to cancel their account"
+  scenario "authenticated user successfully deletes their account" do
+    signed_in_user
+    click_link "Edit Profile"
+    click_button "Cancel my account"
 
-  scenario "authenticated user recieves a warning that their about to delete their account"
-
-  scenario "authenticated user successfully deletes their account"
-
+    expect(page).to have_content("Bye! Your account has been successfully cancelled. We hope to see you again soon.")
+  end
 end
