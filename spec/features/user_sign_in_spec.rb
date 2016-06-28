@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "User creates a new account", type: :feature do
+RSpec.feature "User sign in", type: :feature do
   scenario "User sees link to sign in if the user is unauthenticated" do
     user = FactoryGirl.create(:user)
     visit root_path
