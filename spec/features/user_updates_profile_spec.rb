@@ -20,7 +20,7 @@ RSpec.feature "User updates profile", type: :feature do
 
   scenario "authenticated user successfully edits their profile" do
     signed_in_user
-    click_link "Edit My Profile"
+    click_link "Edit Profile"
     fill_in "Email", with: 'newUser@example.com'
     fill_in "user_password", with: "passwording"
     fill_in "Password confirmation", with: "passwording"
@@ -32,7 +32,7 @@ RSpec.feature "User updates profile", type: :feature do
 
   scenario "authenticated user adds invalid information" do
     signed_in_user
-    click_link "Edit My Profile"
+    click_link "Edit Profile"
     fill_in "Email", with: ''
     fill_in "user_password", with: "passwording"
     fill_in "Password confirmation", with: "passwording"
