@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>RubyBookReviews</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <nav>
-    <ul>
-      <% if user_signed_in? %>
-        <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
-        <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
-      <% else %>
-        <li><%= link_to "Sign In", new_user_session_path %></li>
-        <li><%= link_to "Sign Up", new_user_registration_path %></li>
-      <% end %>
-    </ul>
-  </nav>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
-<%= yield %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
 
-</body>
+  <body>
+    <nav>
+      <ul>
+        <% if user_signed_in? %>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+        <% else %>
+          <li><%= link_to "Sign In", new_user_session_path %></li>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <%= yield %>
+
+  </body>
 </html>
