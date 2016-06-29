@@ -1,28 +1,2 @@
 <h1>Add a New Book</h1>
-<%= simple_form_for(@book) do |f| %>
-
-  <% if @book.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@book.errors.count, "error") %> prohibited
-        this book from being saved:
-      </h2>
-      <ul>
-        <% @book.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-inputs">
-    <%= f.input :title, required: true, autofocus: true %>
-    <%= f.input :author, required: true %>
-    <%= f.input :description, as: :text, required: true, autofocus: true %>
-    <%= f.input :book_cover_photo, required: true %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Add Book" %>
-  </div>
-<% end %>
+<%= render 'form' %>

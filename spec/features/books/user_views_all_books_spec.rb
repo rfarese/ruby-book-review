@@ -18,7 +18,6 @@ RSpec.feature "User views a list of all books", type: :feature do
   scenario "the list of books includes the book title and the book author" do
     add_books
     visit root_path
-    save_and_open_page
 
     expect(page).to have_content("First Book Title")
     expect(page).to have_content("First Bob Smith")

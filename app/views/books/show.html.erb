@@ -1,5 +1,9 @@
 <h1><%= @book.title %></h1>
 
+<% if user_signed_in? %>
+  <%= link_to "Edit Book", edit_book_path(@book) %>
+<% end %>
+
 <ul>
   <li>Author: <%= @book.author %></li>
   <li>Description: <%= @book.description %></li>

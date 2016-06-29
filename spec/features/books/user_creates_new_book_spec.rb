@@ -16,7 +16,7 @@ RSpec.feature "User creates a new book", type: :feature do
     fill_in "Author", with: "Some Author"
     fill_in "Description", with: "This is some new description for testing purposes"
     fill_in "Book cover photo", with: "www.someurlforaphoto.com"
-    click_button "Add Book"
+    click_button "Submit Book"
   end
 
   scenario "user navigates to the new book page" do
@@ -52,7 +52,7 @@ RSpec.feature "User creates a new book", type: :feature do
     signed_in_user
     click_link "Add a New Book"
 
-    click_button "Add Book"
+    click_button "Submit Book"
 
     expect(page).to have_content("3 errors prohibited this book from being saved:")
     expect(page).to have_content("Title can't be blank")

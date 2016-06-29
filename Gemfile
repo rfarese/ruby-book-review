@@ -16,6 +16,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'shoulda'
   gem 'valid_attribute'
+  gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
 end
 
