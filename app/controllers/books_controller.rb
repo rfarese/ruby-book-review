@@ -65,6 +65,20 @@ class BooksController < ApplicationController
     end
   end
 
+  def destroy
+    @book = Book.find(params[:id])
+
+    if current_user.id == @book.user_id
+      @book.destroy
+      flash[:notice] = "You've successfully deleted your book"
+
+      redirect_to books_path
+    else
+      flash[:notice] = "You can only delete a book you've created"
+      render "edit"
+    end
+  end
+
   private
     def book_params
       params_hash = params.require(:book).permit(:title, :author, :description, :book_cover_photo)
