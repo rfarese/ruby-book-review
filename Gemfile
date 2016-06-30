@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'foundation-rails'
 gem 'devise'
 gem 'simple_form'
+gem 'puma'
 
 group :development, :test do
   gem 'capybara'
