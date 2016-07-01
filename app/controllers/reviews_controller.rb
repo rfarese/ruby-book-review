@@ -13,6 +13,41 @@ class ReviewsController < ApplicationController
     redirect_to book_path(@book)
   end
 
+  def edit
+    @book = Book.find(params[:book_id])
+    @review = Review.find(params[:id])
+  end
+
+  def does_review_update?(review, book)
+    if review.update(review_params)
+      flash[:notice] = "You've successfully updated your review!"
+      redirect_to book_path(book) 
+    else
+      render 'edit'
+    end
+  end
+
+  def do_user_ids_match?(review, book)
+    if current_user.id == review.user_id
+      does_review_update?(review, book)
+    else
+      flash[:notice] = "You can only edit a review you've created."
+      render 'edit'
+    end
+  end
+
+  def update
+    @book = Book.find(params[:book_id])
+    @review = Review.find(params[:id])
+
+    if user_signed_in?
+      do_user_ids_match?(@review, @book)
+    else
+      flash[:notice] = "You must be signed in to edit a review"
+      render "edit"
+    end
+  end
+
   private
     def review_params
       params_hash = params.require(:review).permit(:title, :description)

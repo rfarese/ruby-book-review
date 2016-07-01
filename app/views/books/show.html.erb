@@ -11,28 +11,32 @@
 
 <h2>Book Reviews</h2>
 <table>
-  <tr>
-    <th>Created By:</th>
-    <th>Title</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td><%= @user_first_name %></td>
-  <% @book.reviews.each do |review| %>
-    <td><%= review.title %></td>
-    <td><%= review.description %></td>
-  <% end %>
-  </tr>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+    </tr>
+  <thead>
+
+  <tbody>
+    <% @book.reviews.each do |review| %>
+    <tr id="<%= dom_id(review) %>">
+      <td><%= review.title %></td>
+      <td><%= review.description %></td>
+      <td><%= link_to "Edit Review", edit_book_review_path(@book, review) %></td>
+    <% end %>
+    </tr>
+  </tbody>
 </table>
 
 <h2>Add a Review:</h2>
 <%= simple_form_for([@book, @book.reviews.build]) do |f| %>
-<div class="form-inputs">
-  <%= f.input :title, required: true, autofocus: true %>
-  <%= f.input :description, as: :text, required: true, autofocus: true %>
-</div>
+  <div class="form-inputs">
+    <%= f.input :title, required: true, autofocus: true %>
+    <%= f.input :description, as: :text, required: true, autofocus: true %>
+  </div>
 
-<div class="actions">
-  <%= f.submit "Submit Review" %>
-</div>
+  <div class="actions">
+    <%= f.submit "Submit Review" %>
+  </div>
 <% end %>
