@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
   def does_review_update?(review, book)
     if review.update(review_params)
       flash[:notice] = "You've successfully updated your review!"
-      redirect_to book_path(book) 
+      redirect_to book_path(book)
     else
       render 'edit'
     end
@@ -44,6 +44,29 @@ class ReviewsController < ApplicationController
       do_user_ids_match?(@review, @book)
     else
       flash[:notice] = "You must be signed in to edit a review"
+      render "edit"
+    end
+  end
+
+  def user_id_matcher_for_delete(book, review)
+    if current_user.id == review.user_id
+      review.destroy
+      flash[:notice] = "You've successfully deleted your review"
+      redirect_to book_path(book)
+    else
+      flash[:notice] = "You can only delete a review you've created"
+      render "edit"
+    end
+  end
+
+  def destroy
+    @book = Book.find(params[:book_id])
+    @review = Review.find(params[:id])
+
+    if user_signed_in?
+      user_id_matcher_for_delete(@book, @review)
+    else
+      flash[:notice] = "You must be signed in to delete a review"
       render "edit"
     end
   end

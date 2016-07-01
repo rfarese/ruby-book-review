@@ -1,5 +1,7 @@
 <h1>Edit Review</h1>
 
+<%= link_to "Delete Review", book_review_path(@book, @review), method: :delete %>
+
 <%= simple_form_for [@book, @review] do |f| %>
 
   <div class="form-inputs">
