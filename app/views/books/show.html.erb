@@ -24,6 +24,8 @@
       <td><%= review.title %></td>
       <td><%= review.description %></td>
       <td><%= link_to "Edit Review", edit_book_review_path(@book, review) %></td>
+      <td><%= link_to "Up Vote", review_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post %></td>
+      <td><%= link_to "Down Vote", review_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post %></td>
     <% end %>
     </tr>
   </tbody>

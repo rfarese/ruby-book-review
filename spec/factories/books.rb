@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :book do
-    title "First Book Title"
-    author "First Bob Smith"
-    description "This is a really good description for a really good book"
+    sequence(:title) { |n| "Book Title #{n}" }
+    sequence(:author) { |n| "Book Author #{n}" }
+    sequence(:description) { |n| "Great Book Description #{n}" }
 
     association :user, factory: :user
   end

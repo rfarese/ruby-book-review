@@ -18,28 +18,28 @@ RSpec.feature "User updates a book", type: :feature do
   end
 
   scenario "authenticated user views link to navigate to the edit book page" do
-    book = create_book
+    book = FactoryGirl.create(:book)
     sign_in_user(create_user)
     visit root_path
-    click_link "#{book.title}"
+    click_link book.title
 
     expect(page).to have_content("Edit Book")
   end
 
   scenario "unauthenticated user is unable to navigate to the edit book page" do
-    create_book
+    book = FactoryGirl.create(:book)
     visit root_path
-    click_link "First Book Title"
+    click_link book.title
 
     expect(page).to_not have_content("Edit Book")
   end
 
   scenario "authenticated user successfully updates a book they've created" do
-    book = create_book
+    book = FactoryGirl.create(:book)
     user = User.where(id: book.user_id).first
     sign_in_user(user)
     visit root_path
-    click_link "#{book.title}"
+    click_link book.title
     click_link "Edit Book"
 
     fill_in "Title", with: "Updated Title"
@@ -51,10 +51,10 @@ RSpec.feature "User updates a book", type: :feature do
   end
 
   scenario "authenticated users id doesn't match the book's user id and receives an error message" do
-    book = create_book
+    book = FactoryGirl.create(:book)
     sign_in_user(create_user)
     visit root_path
-    click_link "#{book.title}"
+    click_link book.title
     click_link "Edit Book"
 
     fill_in "Title", with: "Updated Title"
@@ -66,11 +66,11 @@ RSpec.feature "User updates a book", type: :feature do
   end
 
   scenario "authenticated user's id matches the book's user id but fails to provide valid and required information" do
-    book = create_book
+    book = FactoryGirl.create(:book)
     user = User.where(id: book.user_id).first
     sign_in_user(user)
     visit root_path
-    click_link "#{book.title}"
+    click_link book.title
     click_link "Edit Book"
 
     fill_in "Title", with: ""
