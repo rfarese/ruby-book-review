@@ -33,12 +33,34 @@ class VotesController < ApplicationController
   def update
     @review = Review.find(params[:review_id])
     @book = Book.where(id: @review.book_id).first
-    @vote = Vote.where(review_id: params[:review_id]).first
 
     if user_signed_in?
+      @vote = Vote.where(user_id: current_user.id, review_id: params[:review_id]).first
       do_user_ids_match_update(@review, @vote)
     else
       flash[:notice] = "You must be signed in to vote"
+    end
+    redirect_to book_path(@book)
+  end
+
+
+  def do_user_ids_match_destroy(review, vote)
+    if current_user.id != review.user_id
+      vote.destroy
+      flash[:notice] = "Your vote has been removed"
+    else
+      flash[:notice] = "You can not delete a vote for a review you created"
+    end
+  end
+
+  def destroy
+    @book = Book.find(params[:id])
+    @review = Review.find(params[:review_id])
+    if user_signed_in?
+      @vote = Vote.where(user_id: current_user.id, review_id: params[:review_id]).first
+      do_user_ids_match_destroy(@review, @vote)
+    else
+      flash[:notice] = "You must be signed in to delete a vote"
     end
     redirect_to book_path(@book)
   end

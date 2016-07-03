@@ -38,6 +38,7 @@
           <%= link_to "Down Vote", review_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post %>
         <% end %>
       </td>
+      <td><%= link_to "Delete Vote", review_vote_path(review_id: review.id), method: :delete %></td>
     <% end %>
     </tr>
   </tbody>
