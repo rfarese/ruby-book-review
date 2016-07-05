@@ -11,5 +11,6 @@ RSpec.feature "Admin deletes a book", type: :feature do
     click_link "Delete Book"
 
     expect(page).to have_content("You've successfully deleted the book")
+    expect(book.user_id).to_not eq(admin.id)
   end
 end

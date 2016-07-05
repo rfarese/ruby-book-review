@@ -35,7 +35,7 @@ RSpec.feature "User deletes a review", type: :feature do
     click_link "Edit Review"
     click_link "Delete Review"
 
-    expect(page).to have_content("You've successfully deleted your review")
+    expect(page).to have_content("You've successfully deleted the review")
   end
 
   scenario "an unauthenticated user unsuccessfully attempts to delete a review" do
