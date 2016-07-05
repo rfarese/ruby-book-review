@@ -54,10 +54,10 @@ RSpec.feature "User deletes a book", type: :feature do
     user = User.where(id: book.user_id).first
     sign_in_user(user)
     visit root_path
-    click_link book.title 
+    click_link book.title
     click_link "Edit Book"
     click_link "Delete Book"
 
-    expect(page).to have_content("You've successfully deleted your book")
+    expect(page).to have_content("You've successfully deleted the book")
   end
 end

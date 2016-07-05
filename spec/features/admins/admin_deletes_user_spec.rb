@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Admin views all system users", type: :feature do
+RSpec.feature "Admin deletes a user", type: :feature do
 
   scenario "Admin views a 'delete' link next to each users name" do
     admin = FactoryGirl.create(:admin)

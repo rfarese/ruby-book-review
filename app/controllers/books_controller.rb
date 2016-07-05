@@ -68,9 +68,9 @@ class BooksController < ApplicationController
   def destroy
     @book = Book.find(params[:id])
 
-    if current_user.id == @book.user_id
+    if current_user.id == @book.user_id || admin?
       @book.destroy
-      flash[:notice] = "You've successfully deleted your book"
+      flash[:notice] = "You've successfully deleted the book"
 
       redirect_to books_path
     else
