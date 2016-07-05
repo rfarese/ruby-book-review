@@ -5,6 +5,14 @@ before_action :authorize_user
     @users = User.all
   end
 
+  def destroy
+    @user = User.find(params[:id])
+
+    @user.destroy
+    flash[:notice] = "You've successfully removed the user"
+    render "index"
+  end
+
   protected
   def authorize_user
     if !user_signed_in? || current_user.role != "admin"

@@ -9,5 +9,5 @@ Rails.application.routes.draw do
     resources :votes, only: [:create, :update, :destroy]
   end
 
-  resources :users, only: [:index]
+  resources :users, only: [:index, :destroy]
 end

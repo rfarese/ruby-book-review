@@ -9,9 +9,9 @@ RSpec.feature "Admin views all system users", type: :feature do
     click_link "User Profiles"
 
     expect(page).to have_content("All System Users")
-    expect(page).to have_content("John Smith")
-    expect(page).to have_content("Email: person1@example.com")
-    expect(page).to have_content("Role: member")
+    expect(page).to have_content("#{user.first_name} #{user.last_name}")
+    expect(page).to have_content("Email: #{user.email}")
+    expect(page).to have_content("Role: #{user.role}")
   end
 
   scenario "an unauthenticated user doesn't view link to access the list of users" do
