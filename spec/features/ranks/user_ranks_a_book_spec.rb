@@ -1,44 +1,47 @@
 require 'rails_helper'
 
 RSpec.feature "User ranks a book;", type: :feature do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:book) { FactoryGirl.create(:book) }
 
-  scenario "User views ranking capabilities on the book show page" do
-    book = FactoryGirl.create(:book)
+  def unauth_navigate_to_book_details_page
+    book
     visit root_path
     click_link book.title
+  end
+
+  def navigate_and_choose_rank
+    click_link "Rank This Book"
+    choose("5")
+    click_button "Save Rank"
+  end
+
+  scenario "User views ranking capabilities on the book show page" do
+    unauth_navigate_to_book_details_page
 
     expect(page).to have_content("Rank This Book")
   end
 
   scenario "user views possible rankings for a book (1, 2, 3, 4, 5)" do
-    book = FactoryGirl.create(:book)
-    visit root_path
-    click_link book.title
+    unauth_navigate_to_book_details_page
     click_link "Rank This Book"
 
     expect(page).to have_content("Rank #{book.title}")
   end
 
   scenario "An authenticated user successfully ranks a book" do
-    user = FactoryGirl.create(:user)
-    book = FactoryGirl.create(:book)
+    book
     sign_in(user)
     click_link book.title
-    click_link "Rank This Book"
-    choose("5")
-    click_button "Save Rank"
+    navigate_and_choose_rank
 
     expect(page).to have_content("Your book ranking has been saved!")
     expect(Rank.all.size).to eq(1)
   end
 
   scenario "An unauthenticated user unsuccessfully attempts to rank a book" do
-    book = FactoryGirl.create(:book)
-    visit root_path
-    click_link book.title
-    click_link "Rank This Book"
-    choose("5")
-    click_button "Save Rank"
+    unauth_navigate_to_book_details_page
+    navigate_and_choose_rank
 
     expect(page).to have_content("You must be signed in to rank a book")
     expect(Rank.all.size).to eq(0)

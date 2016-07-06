@@ -1,20 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature "User sign in", type: :feature do
+  let(:user) { FactoryGirl.create(:user) }
+
   scenario "User sees link to sign in if the user is unauthenticated" do
-    user = FactoryGirl.create(:user)
     visit root_path
 
     expect(page).to have_content("Sign In")
   end
 
   scenario "a returning user provides all valid information when signing in" do
-    user = FactoryGirl.create(:user)
-    visit root_path
-    click_link "Sign In"
-    fill_in 'Email', with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
+    sign_in(user)
 
     expect(page).to have_content("Signed in successfully")
     expect(page).to have_content("Sign Out")

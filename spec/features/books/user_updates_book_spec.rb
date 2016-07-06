@@ -1,33 +1,27 @@
 require 'rails_helper'
 
 RSpec.feature "User updates a book", type: :feature do
-  def create_user
-    FactoryGirl.create(:user)
-  end
+  let(:user) { FactoryGirl.create(:user) }
+  let(:book) { FactoryGirl.create(:book) }
 
-  def create_book
-    FactoryGirl.create(:book)
-  end
-
-  def sign_in_user(user)
-    visit root_path
-    click_link "Sign In"
-    fill_in 'Email', with: user.email
-    fill_in "Password", with: "password"
-    click_button "Log in"
+  def sign_in_as_book_creator_and_navigate
+    book
+    current_user = User.where(id: book.user_id).first
+    sign_in(current_user)
+    click_link book.title
+    click_link "Edit Book"
   end
 
   scenario "authenticated user views link to navigate to the edit book page" do
-    book = FactoryGirl.create(:book)
-    sign_in_user(create_user)
-    visit root_path
+    book
+    sign_in(user)
     click_link book.title
 
     expect(page).to have_content("Edit Book")
   end
 
   scenario "unauthenticated user is unable to navigate to the edit book page" do
-    book = FactoryGirl.create(:book)
+    book
     visit root_path
     click_link book.title
 
@@ -35,12 +29,7 @@ RSpec.feature "User updates a book", type: :feature do
   end
 
   scenario "authenticated user successfully updates a book they've created" do
-    book = FactoryGirl.create(:book)
-    user = User.where(id: book.user_id).first
-    sign_in_user(user)
-    visit root_path
-    click_link book.title
-    click_link "Edit Book"
+    sign_in_as_book_creator_and_navigate
 
     fill_in "Title", with: "Updated Title"
     fill_in "Author", with: "Updated Author"
@@ -51,9 +40,8 @@ RSpec.feature "User updates a book", type: :feature do
   end
 
   scenario "authenticated users id doesn't match the book's user id and receives an error message" do
-    book = FactoryGirl.create(:book)
-    sign_in_user(create_user)
-    visit root_path
+    book
+    sign_in(user)
     click_link book.title
     click_link "Edit Book"
 
@@ -66,12 +54,7 @@ RSpec.feature "User updates a book", type: :feature do
   end
 
   scenario "authenticated user's id matches the book's user id but fails to provide valid and required information" do
-    book = FactoryGirl.create(:book)
-    user = User.where(id: book.user_id).first
-    sign_in_user(user)
-    visit root_path
-    click_link book.title
-    click_link "Edit Book"
+    sign_in_as_book_creator_and_navigate
 
     fill_in "Title", with: ""
     fill_in "Author", with: ""

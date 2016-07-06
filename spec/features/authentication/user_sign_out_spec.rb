@@ -1,24 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature "User signs out of the system", type: :feature do
-
-  def signed_in_user
-    user = FactoryGirl.create(:user)
-    visit root_path
-    click_link "Sign In"
-    fill_in 'Email', with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
-  end
+  let(:user) { FactoryGirl.create(:user) }
 
   scenario "authenticated user views sign out link" do
-    signed_in_user
+    sign_in(user)
 
     expect(page).to have_content("Sign Out")
   end
 
   scenario "user successfully signs out of the system" do
-    signed_in_user
+    sign_in(user)
     click_link "Sign Out"
 
     expect(page).to have_content("Sign In")

@@ -2,14 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "User creates a new book", type: :feature do
 
-  def signed_in_user
-    user = FactoryGirl.create(:user)
-    visit root_path
-    click_link "Sign In"
-    fill_in 'Email', with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
-  end
+  let(:user) { FactoryGirl.create(:user) }
 
   def add_a_new_book
     fill_in "Title", with: "Some Title"
@@ -40,18 +33,16 @@ RSpec.feature "User creates a new book", type: :feature do
   end
 
   scenario "authenticated user successfully creates a new book" do
-    signed_in_user
+    sign_in(user)
     click_link "Add a New Book"
-
     add_a_new_book
 
     expect(page).to have_content("You've successfully created a new book!")
   end
 
   scenario "authenticated user doesnt provide valid and required information to create a new book" do
-    signed_in_user
+    sign_in(user)
     click_link "Add a New Book"
-
     click_button "Submit Book"
 
     expect(page).to have_content("3 errors prohibited this book from being saved:")
