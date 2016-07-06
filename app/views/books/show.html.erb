@@ -7,7 +7,10 @@
 <ul>
   <li>Author: <%= @book.author %></li>
   <li>Description: <%= @book.description %></li>
+  <li>Average Ranking: <%= @book.average_rank %></li>
 </ul>
+
+<%= link_to "Rank This Book", new_book_rank_path(@book.id)%>
 
 <h2>Book Reviews</h2>
 <table>

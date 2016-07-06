@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index, :destroy]
+
+  resources :books, only: [] do
+    resources :ranks
+  end
 end

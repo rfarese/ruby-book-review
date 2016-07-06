@@ -1,0 +1,5 @@
+<h1>Rank <%= @book.title %></h1>
+<%= simple_form_for [@book, @rank] do |f| %>
+  <%= f.input :rank, collection: 1..5, as: :radio_buttons %>
+  <%= f.submit "Save Rank" %>
+<% end %>
