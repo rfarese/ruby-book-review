@@ -2,14 +2,6 @@ require 'rails_helper'
 
 RSpec.feature "User edits a vote;", type: :feature do
 
-  def sign_in(user)
-    visit root_path
-    click_link "Sign In"
-    fill_in 'Email', with: user.email
-    fill_in "Password", with: "password"
-    click_button "Log in"
-  end
-
   scenario "authenticated user successfully changes a vote" do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
