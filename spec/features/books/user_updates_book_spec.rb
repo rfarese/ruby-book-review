@@ -28,6 +28,20 @@ RSpec.feature "User updates a book", type: :feature do
     expect(page).to_not have_content("Edit Book")
   end
 
+  scenario "unauthenticated user unsuccessfully attempts to edit a book" do
+    book
+    visit root_path
+    click_link book.title
+    attributes = { title: "Update Title",
+                   author: "Update Author",
+                   description: "Updated description of this updated book with an updated title and an updated author"
+                 }
+    Capybara.current_session.driver.submit :patch, book_path(book), attributes
+    visit books_path
+
+    expect(page).to have_content("You must be signed in to edit a book")
+  end
+
   scenario "authenticated user successfully updates a book they've created" do
     sign_in_as_book_creator_and_navigate
 

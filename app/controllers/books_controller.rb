@@ -69,23 +69,29 @@ class BooksController < ApplicationController
     if user_signed_in?
       do_user_ids_match?(@book)
     else
-      flash[:notice] = "You must be signed in to create a new book"
+      flash[:notice] = "You must be signed in to edit a book"
       render "edit"
+    end
+  end
+
+  def user_id_matcher_for_delete(book)
+    if current_user.id == book.user_id || admin?
+      book.destroy
+      flash[:notice] = "You've successfully deleted the book"
+    else
+      flash[:notice] = "You can only delete a book you've created"
     end
   end
 
   def destroy
     @book = Book.find(params[:id])
 
-    if current_user.id == @book.user_id || admin?
-      @book.destroy
-      flash[:notice] = "You've successfully deleted the book"
-
-      redirect_to books_path
+    if user_signed_in?
+      user_id_matcher_for_delete(@book)
     else
-      flash[:notice] = "You can only delete a book you've created"
-      render "edit"
+      flash[:notice] = "You must be signed in to delete a book"
     end
+    redirect_to books_path
   end
 
   private

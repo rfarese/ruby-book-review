@@ -15,5 +15,6 @@ RSpec.feature "User deletes account", type: :feature do
     click_button "Cancel my account"
 
     expect(page).to have_content("Bye! Your account has been successfully cancelled. We hope to see you again soon.")
+    expect(User.all.size).to eq(0)
   end
 end
