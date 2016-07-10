@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Admin deletes a user", type: :feature do
+RSpec.feature "Admin deletes a user;", type: :feature do
 
   scenario "Admin views a 'delete' link next to each users name" do
     admin = FactoryGirl.create(:admin)
@@ -25,19 +25,3 @@ RSpec.feature "Admin deletes a user", type: :feature do
     expect(page).to have_content("You've successfully removed the user")
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#

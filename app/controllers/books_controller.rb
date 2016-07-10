@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   end
 
   def show
+    @rank = Rank.where(book_id: params[:id]).first
     @book = Book.find(params[:id])
   end
 

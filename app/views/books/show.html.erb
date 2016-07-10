@@ -10,7 +10,14 @@
   <li>Average Ranking: <%= @book.average_rank %></li>
 </ul>
 
-<%= link_to "Rank This Book", new_book_rank_path(@book.id)%>
+<ul>
+  <% if @rank %>
+    <li><%= link_to "Edit Rank", edit_book_rank_path(@book, @rank) %></li>
+    <li><%= link_to "Delete Rank", "#" %></li>
+  <% else %>
+  <li><%= link_to "Rank Book", new_book_rank_path(@book.id)%></li>
+  <% end %>
+</ul>
 
 <h2>Book Reviews</h2>
 <table>

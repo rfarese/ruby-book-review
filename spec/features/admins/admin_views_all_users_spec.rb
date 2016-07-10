@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Admin views all system users", type: :feature do
+RSpec.feature "Admin views all system users;", type: :feature do
 
   scenario "Admin user accesses page that lists all the users of the system" do
     admin = FactoryGirl.create(:admin)
@@ -20,10 +20,9 @@ RSpec.feature "Admin views all system users", type: :feature do
     expect(page).to_not have_content("User Profiles")
   end
 
-  scenario "An unauthenticated user cannot access this list of users" do
-    visit users_path
+  scenario "An unauthenticated user cannot access the list of users" do
 
-    expect(page.status_code).to eq(404)
+    expect{ visit users_path }.to raise_error(ActionController::RoutingError)
   end
 
   scenario "An non-admin authenticated user does not view the link to access the list of users" do
@@ -36,8 +35,7 @@ RSpec.feature "Admin views all system users", type: :feature do
   scenario "A non-admin authenticated user cannot access the list of users" do
     user = FactoryGirl.create(:user)
     sign_in(user)
-    visit users_path
 
-    expect(page.status_code).to eq(404)
+    expect{ visit users_path }.to raise_error(ActionController::RoutingError)
   end
 end

@@ -10,7 +10,7 @@ before_action :authorize_user
 
     @user.destroy
     flash[:notice] = "You've successfully removed the user"
-    render "index"
+    redirect_to users_path
   end
 
   protected

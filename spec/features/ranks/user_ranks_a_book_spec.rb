@@ -11,7 +11,7 @@ RSpec.feature "User ranks a book;", type: :feature do
   end
 
   def navigate_and_choose_rank
-    click_link "Rank This Book"
+    click_link "Rank Book"
     choose("5")
     click_button "Save Rank"
   end
@@ -19,12 +19,12 @@ RSpec.feature "User ranks a book;", type: :feature do
   scenario "User views ranking capabilities on the book show page" do
     unauth_navigate_to_book_details_page
 
-    expect(page).to have_content("Rank This Book")
+    expect(page).to have_content("Rank Book")
   end
 
   scenario "user views possible rankings for a book (1, 2, 3, 4, 5)" do
     unauth_navigate_to_book_details_page
-    click_link "Rank This Book"
+    click_link "Rank Book"
 
     expect(page).to have_content("Rank #{book.title}")
   end
