@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "User ranks a book;", type: :feature do
+RSpec.feature "User edits a book rank;", type: :feature do
   let(:user) { FactoryGirl.create(:user) }
   let(:book) { FactoryGirl.create(:book) }
 
@@ -16,7 +16,7 @@ RSpec.feature "User ranks a book;", type: :feature do
     click_button "Save Rank"
   end
 
-  scenario "Authenticated user views link to edit the book rank on the book show page" do
+  scenario "Authenticated user views link to edit a rank they have created on the book show page" do
     rank = FactoryGirl.create(:rank)
     book = Book.where(id: rank.book_id).first
     user = User.where(id: rank.user_id).first
@@ -45,9 +45,8 @@ RSpec.feature "User ranks a book;", type: :feature do
     book = Book.where(id: rank.book_id).first
     visit root_path
     click_link book.title
-    click_link "Edit Rank"
-    choose('rank_rank_3')
-    click_button "Save Rank"
+
+    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {rank: 3}
 
     expect(page).to have_content("You must be signed in to edit a book ranking")
   end
@@ -58,9 +57,8 @@ RSpec.feature "User ranks a book;", type: :feature do
     user = FactoryGirl.create(:user)
     sign_in(user)
     click_link book.title
-    click_link "Edit Rank"
-    choose('rank_rank_3')
-    click_button "Save Rank"
+
+    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {rank: 3}
 
     expect(page).to have_content("You can only edit a rank you've created")
   end

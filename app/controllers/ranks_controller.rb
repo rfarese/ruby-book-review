@@ -51,6 +51,27 @@ class RanksController < ApplicationController
     end
   end
 
+  def user_id_matcher_for_delete(book, rank)
+    if current_user.id == rank.user_id || admin?
+      rank.destroy
+      flash[:notice] = "You've successfully deleted your book ranking"
+    else
+      flash[:notice] = "You can only delete a rank you've created"
+    end
+  end
+
+  def destroy
+    @book = Book.where(id: params[:book_id]).first
+    @rank = Rank.where(id: params[:id]).first
+
+    if user_signed_in?
+      user_id_matcher_for_delete(@book, @rank)
+    else
+      flash[:notice] = "You must be signed in to delete a rank"
+    end
+    redirect_to book_path(@book)
+  end
+
   private
     def rank_params
       params_hash = params.require(:rank).permit(:rank)

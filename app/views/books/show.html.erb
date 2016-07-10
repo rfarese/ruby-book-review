@@ -7,13 +7,17 @@
 <ul>
   <li>Author: <%= @book.author %></li>
   <li>Description: <%= @book.description %></li>
-  <li>Average Ranking: <%= @book.average_rank %></li>
+  <% if @book.rankings == [] %>
+    <li>There is no average ranking for this book</li>
+  <% else %>
+    <li>Average Ranking: <%= @book.average_rank %></li>
+  <% end %>
 </ul>
 
 <ul>
   <% if @rank %>
     <li><%= link_to "Edit Rank", edit_book_rank_path(@book, @rank) %></li>
-    <li><%= link_to "Delete Rank", "#" %></li>
+    <li><%= link_to "Delete Rank", book_rank_path(@book, @rank), method: :delete %></li>
   <% else %>
   <li><%= link_to "Rank Book", new_book_rank_path(@book.id)%></li>
   <% end %>

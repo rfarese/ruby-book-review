@@ -12,9 +12,11 @@ RSpec.feature "User views average book rank;", type: :feature do
 
   scenario "An unauthenticated user views the average ranking on the book show page" do
     rank = FactoryGirl.create(:rank)
-    unauth_navigate_to_book_details_page
+    book = Book.where(id: rank.book_id).first
+    visit root_path
+    click_link book.title
 
-    expect(page).to have_content("Average Ranking:")
+    expect(page).to have_content("Average Ranking: #{rank.rank}")
   end
 
   scenario "An authenticated user views the average book ranking on the book show page" do
@@ -25,5 +27,13 @@ RSpec.feature "User views average book rank;", type: :feature do
     click_link book.title
 
     expect(page).to have_content("Average Ranking: #{rank.rank}")
+  end
+
+  scenario "User views a book with no average ranking" do
+    book = FactoryGirl.create(:book)
+    visit root_path
+    click_link book.title
+
+    expect(page).to have_content("There is no average ranking for this book")
   end
 end

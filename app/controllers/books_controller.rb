@@ -3,8 +3,16 @@ class BooksController < ApplicationController
     @books = Book.all
   end
 
+  def has_user_ranked_book?
+    if Rank.where(book_id: params[:id], user_id: current_user.id).size != 0
+      return @rank = Rank.where(book_id: params[:id], user_id: current_user.id).first
+    end
+  end
+
   def show
-    @rank = Rank.where(book_id: params[:id]).first
+    if user_signed_in?
+      has_user_ranked_book?
+    end
     @book = Book.find(params[:id])
   end
 
