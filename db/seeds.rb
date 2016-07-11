@@ -1,1 +1,9 @@
-Book.create(user_id: 1, title: "Book Title", author: "Bob Smith", description: "This is a really good description for a book")
+if Rails.env.development?
+  UserSeeder.seed!
+  # add books
+  BookSeeder.seed!
+  # add reviews
+  ReviewSeeder.seed!
+  # add ranks
+  # add votes
+end
