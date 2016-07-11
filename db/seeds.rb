@@ -3,6 +3,7 @@ if Rails.env.development?
   # add books
   BookSeeder.seed!
   # add reviews
+  ReviewSeeder.seed!
   # add ranks
   # add votes
 end
