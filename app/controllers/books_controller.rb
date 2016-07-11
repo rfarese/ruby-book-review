@@ -18,6 +18,7 @@ class BooksController < ApplicationController
       has_user_ranked_book?
     end
     @book = Book.find(params[:id])
+    @reviews = @book.reviews.page(params[:page])
   end
 
   def new

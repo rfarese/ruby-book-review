@@ -49,7 +49,7 @@ class ReviewsController < ApplicationController
   end
 
   def user_id_matcher_for_delete(book, review)
-    if current_user.id == review.user_id || admin? 
+    if current_user.id == review.user_id || admin?
       review.destroy
       flash[:notice] = "You've successfully deleted the review"
       redirect_to book_path(book)
