@@ -3,7 +3,7 @@ class BooksController < ApplicationController
     if params[:search]
       @books = Book.where("title LIKE ?", params[:search])
     else
-      @books = Book.all
+      @books = Book.all.page(params[:page])
     end
   end
 

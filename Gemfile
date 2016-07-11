@@ -11,6 +11,7 @@ gem 'foundation-rails'
 gem 'devise'
 gem 'simple_form'
 gem 'puma'
+gem 'kaminari'
 
 group :development, :test do
   gem 'capybara'
