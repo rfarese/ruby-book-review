@@ -7,3 +7,5 @@
     <li id="<%= dom_id(book) %>"><%= link_to "#{book.title}", book_path(book) %> by <%= book.author %></li>
   <% end %>
 </ul>
+
+<%= paginate @books %>
