@@ -1,5 +1,12 @@
 require 'rails_helper'
 
+# Acceptance Criteria:
+#   * Create an instance method in the Review model that'll give the total voting score for that review
+#   * Create a class method in the Review model that:
+#     * looks at all the reviews for a given book
+#     * totals the voting score for each review
+#     * organizes the reviews from highest voting score to lowest voting score
+
 RSpec.describe Vote, type: :model do
   it { should have_valid(:review_id).when(1, 2, 3, 4) }
   it { should have_valid(:user_id).when(1, 2, 3, 4) }

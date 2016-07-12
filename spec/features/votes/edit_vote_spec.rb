@@ -2,6 +2,18 @@ require 'rails_helper'
 
 RSpec.feature "User edits a vote;", type: :feature do
 
+# New Acceptance Criteria: 
+  # * User views their current voting status for that review on the voting page
+  #     * If they have voted, display whether they if they upvoted or downvoted the review
+  #     * If they upvoted:
+  #       * display "You upvoted this review"
+  #       * display a link "Down Vote" under the heading "Edit Your Vote"
+  #       * display "Delete Vote" link
+  #     * If they downvoted:
+  #       * display "You downvoted this review"
+  #       * display a link "Up Vote" under the heading "Edit Your Vote"
+  #       * display "Delete Vote" link
+
   scenario "authenticated user successfully changes a vote" do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first

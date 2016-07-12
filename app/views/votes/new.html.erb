@@ -1,0 +1,4 @@
+<h1>Create a New Vote</h1>
+
+<%= link_to "Up Vote", review_votes_path(@review, up_vote: true, down_vote: false), method: :post %>
+<%= link_to "Down Vote", review_votes_path(@review, up_vote: false, down_vote: true), method: :post %>

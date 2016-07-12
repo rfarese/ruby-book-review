@@ -1,0 +1,15 @@
+<td>
+  <% if Vote.where(review_id: review.id).first %>
+    <%= link_to "Up Vote", review_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch %>
+  <% else %>
+    <%= link_to "Up Vote", review_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post %>
+  <% end %>
+</td>
+<td>
+  <% if Vote.where(review_id: review.id).first %>
+    <%= link_to "Down Vote", review_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch %>
+  <% else %>
+    <%= link_to "Down Vote", review_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post %>
+  <% end %>
+</td>
+<td><%= link_to "Delete Vote", review_vote_path(review_id: review.id), method: :delete %></td>

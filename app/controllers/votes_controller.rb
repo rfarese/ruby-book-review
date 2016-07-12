@@ -1,11 +1,15 @@
 class VotesController < ApplicationController
 
+  def new
+    @review = Review.where(id: params[:review_id]).first
+  end
+
   def do_user_ids_match?(review, book)
     if current_user.id != review.user_id
       @vote = Vote.create(vote_params)
-      flash[:notice] = "Nice Up Vote!"
+      flash[:notice] = "What a Nice Looking Vote!"
     else
-      flash[:notice] = "You can't vote for your own review"
+      flash[:notice] = "Silly Rabbit! You can't vote for your own review!"
     end
   end
 
@@ -16,17 +20,17 @@ class VotesController < ApplicationController
     if user_signed_in?
       do_user_ids_match?(@review, @book)
     else
-      flash[:notice] = "Sign in before you vote!"
+      flash[:notice] = "Join the cool kids! Sign in to cast your vote!"
     end
     redirect_to book_path(@book)
   end
 
-  def do_user_ids_match_update(review, vote)
+  def do_user_ids_match_update?(review, vote)
     if current_user.id != review.user_id
       vote.update(vote_params)
       flash[:notice] = "You've successfully updated your vote"
     else
-      flash[:notice] = "You can't vote for your own review"
+      flash[:notice] = "Silly Rabbit! You can't vote for your own review!"
     end
   end
 
@@ -36,7 +40,7 @@ class VotesController < ApplicationController
 
     if user_signed_in?
       @vote = Vote.where(user_id: current_user.id, review_id: params[:review_id]).first
-      do_user_ids_match_update(@review, @vote)
+      do_user_ids_match_update?(@review, @vote)
     else
       flash[:notice] = "You must be signed in to vote"
     end

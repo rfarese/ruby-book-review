@@ -38,21 +38,7 @@
       <td><%= review.title %></td>
       <td><%= review.description %></td>
       <td><%= link_to "Edit Review", edit_book_review_path(@book, review) %></td>
-      <td>
-        <% if Vote.where(review_id: review.id).first %>
-          <%= link_to "Up Vote", review_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch %>
-        <% else %>
-          <%= link_to "Up Vote", review_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post %>
-        <% end %>
-      </td>
-      <td>
-        <% if Vote.where(review_id: review.id).first %>
-          <%= link_to "Down Vote", review_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch %>
-        <% else %>
-          <%= link_to "Down Vote", review_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post %>
-        <% end %>
-      </td>
-      <td><%= link_to "Delete Vote", review_vote_path(review_id: review.id), method: :delete %></td>
+      <td><%= link_to "Vote", new_review_vote_path(review) %></td>
     <% end %>
     </tr>
   </tbody>
