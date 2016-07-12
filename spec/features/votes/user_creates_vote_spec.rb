@@ -15,13 +15,6 @@ RSpec.feature "User creates a vote;", type: :feature do
     click_link "Up Vote"
   end
 
-#   Acceptance Criteria:
-#   * User views a "Vote" link next to each review that will bring the user to the voting page
-#   * A user can either "Up Vote" or "Down Vote" a review
-#   * An unauthenticated user receives an error message when attempting to vote
-#   * An authenticated user whose id matches the reviews user id receives an error message
-#   * An authenticated user whose id doesn't match the review user id successfully creates a vote for the review
-
   scenario "User views 'Vote' link on book show page next to each review" do
     review
     book
@@ -118,5 +111,59 @@ RSpec.feature "User creates a vote;", type: :feature do
     expect(Vote.all.size).to eq(1)
     expect(vote.up_vote).to be(true)
     expect(vote.down_vote).to be(false)
+  end
+
+  scenario "User creates a vote for two different reviews for the same book" do
+    review = FactoryGirl.create(:review)
+    second_review = FactoryGirl.create(:review, book_id: review.book_id)
+    user = FactoryGirl.create(:user)
+    sign_in(user)
+
+    click_link review.book.title
+    within("#review_#{review.id}") do
+      click_link "Vote"
+    end
+    click_link "Up Vote"
+
+    visit root_path
+    click_link review.book.title
+    within("#review_#{second_review.id}") do
+      click_link "Vote"
+    end
+    click_link "Down Vote"
+
+    first_vote = Vote.where(user_id: user.id, review_id: review.id).first
+    second_vote = Vote.where(user_id: user.id, review_id: second_review.id).first
+
+    expect(Vote.all.size).to eq(2)
+    expect(first_vote).to_not eq(second_vote)
+    expect(first_vote.up_vote).to eq(true)
+    expect(first_vote.down_vote).to eq(false)
+    expect(second_vote.down_vote).to eq(true)
+    expect(second_vote.up_vote).to eq(false)
+  end
+
+  scenario "User creates a vote for a review for two different books" do
+    review = FactoryGirl.create(:review)
+    second_review = FactoryGirl.create(:review)
+    user = FactoryGirl.create(:user)
+    sign_in(user)
+    click_link review.book.title
+    click_link "Vote"
+    click_link "Up Vote"
+    visit root_path
+    click_link second_review.book.title
+    click_link "Vote"
+    click_link "Down Vote"
+
+    first_vote = Vote.where(user_id: user.id, review_id: review.id).first
+    second_vote = Vote.where(user_id: user.id, review_id: second_review.id).first
+
+    expect(Vote.all.size).to eq(2)
+    expect(first_vote).to_not eq(second_vote)
+    expect(first_vote.up_vote).to eq(true)
+    expect(first_vote.down_vote).to eq(false)
+    expect(second_vote.up_vote).to eq(false)
+    expect(second_vote.down_vote).to eq(true)
   end
 end
