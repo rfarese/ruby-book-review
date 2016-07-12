@@ -1,7 +1,22 @@
 class VotesController < ApplicationController
 
+  def has_user_voted(review)
+    voting_status = "None"
+    if user_signed_in? && Vote.where(user_id: current_user.id, review_id: review.id).first
+      @vote = Vote.where(user_id: current_user.id, review_id: review.id).first
+      if @vote.up_vote == true
+        voting_status = "Up Voted"
+      end
+      if @vote.down_vote == true
+        voting_status = "Down Voted"
+      end
+    end
+    voting_status
+  end
+
   def new
     @review = Review.where(id: params[:review_id]).first
+    @voting_status = has_user_voted(@review)
   end
 
   def do_user_ids_match?(review, book)

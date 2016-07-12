@@ -27,6 +27,7 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Title</th>
       <th>Description</th>
     </tr>
@@ -35,9 +36,9 @@
   <tbody>
     <% @reviews.each do |review| %>
     <tr id="<%= dom_id(review) %>">
+      <td><%= link_to "Edit", edit_book_review_path(@book, review) %></td>
       <td><%= review.title %></td>
       <td><%= review.description %></td>
-      <td><%= link_to "Edit Review", edit_book_review_path(@book, review) %></td>
       <td><%= link_to "Vote", new_review_vote_path(review) %></td>
     <% end %>
     </tr>

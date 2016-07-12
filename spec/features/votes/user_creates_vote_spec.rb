@@ -101,18 +101,19 @@ RSpec.feature "User creates a vote;", type: :feature do
   end
 
   scenario "A user unsuccessfully attempts to create two votes for the same review" do
-    review
-    book
-    user = FactoryGirl.create(:user)
+    vote = FactoryGirl.create(:vote)
+    user = vote.user
     sign_in(user)
-    click_link book.title
+    click_link vote.review.book.title
     click_link "Vote"
-    click_link "Up Vote"
-    visit root_path
-    click_link book.title
-    click_link "Vote"
-    click_link "Down Vote"
-    vote = Vote.where(review_id: review.id, user_id: user.id).first
+    attributes = {
+      review_id: vote.review_id,
+      user_id: user.id,
+      up_vote: false,
+      down_vote: true
+    }
+    Capybara.current_session.driver.submit :post, review_votes_path(vote.review), attributes
+    visit book_path(vote.review.book)
 
     expect(Vote.all.size).to eq(1)
     expect(vote.up_vote).to be(true)

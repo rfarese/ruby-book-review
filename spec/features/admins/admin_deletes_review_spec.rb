@@ -8,7 +8,7 @@ RSpec.feature "Admin deletes a review", type: :feature do
     book = Book.where(id: review.book_id).first
     sign_in(admin)
     click_link book.title
-    click_link "Edit Review"
+    click_link "Edit"
     click_link "Delete Review"
 
     expect(page).to have_content("You've successfully deleted the review")

@@ -13,7 +13,7 @@ RSpec.feature "User deletes a review", type: :feature do
 
   def navigate_and_delete_review
     click_link book.title
-    click_link "Edit Review"
+    click_link "Edit"
     click_link "Delete Review"
   end
 
@@ -21,7 +21,7 @@ RSpec.feature "User deletes a review", type: :feature do
     get_book_and_review
     visit root_path
     click_link book.title
-    click_link "Edit Review"
+    click_link "Edit"
 
     expect(page).to have_content("Delete Review")
   end

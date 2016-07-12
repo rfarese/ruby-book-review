@@ -2,53 +2,97 @@ require 'rails_helper'
 
 RSpec.feature "User edits a vote;", type: :feature do
 
-# New Acceptance Criteria: 
-  # * User views their current voting status for that review on the voting page
-  #     * If they have voted, display whether they if they upvoted or downvoted the review
-  #     * If they upvoted:
-  #       * display "You upvoted this review"
-  #       * display a link "Down Vote" under the heading "Edit Your Vote"
-  #       * display "Delete Vote" link
-  #     * If they downvoted:
-  #       * display "You downvoted this review"
-  #       * display a link "Up Vote" under the heading "Edit Your Vote"
-  #       * display "Delete Vote" link
+  scenario "User views the ability to edit their vote on the voting page" do
+    vote = FactoryGirl.create(:vote)
+    book = vote.review.book
+    user = vote.user
+    sign_in(user)
+    click_link book.title
+    click_link "Vote"
 
-  scenario "authenticated user successfully changes a vote" do
+    expect(page).to have_content("Edit Your Vote")
+  end
+
+  scenario "User views their current voting status for a review they'd previously up voted" do
+    vote = FactoryGirl.create(:vote)
+    book = vote.review.book
+    user = vote.user
+    sign_in(user)
+    click_link book.title
+    click_link "Vote"
+
+    expect(page).to have_content("Voting Status: Up Voted")
+  end
+
+  scenario "User views their current voting status for a review they'd previously down voted" do
+    vote = FactoryGirl.create(:vote, up_vote: false, down_vote: true)
+    user = vote.user
+    sign_in(user)
+    click_link vote.review.book.title
+    click_link "Vote"
+
+    expect(page).to have_content("Voting Status: Down Voted")
+  end
+
+
+  scenario "User successfully changes their vote from up vote to down vote" do
+    old_vote = FactoryGirl.create(:vote)
+    user = old_vote.user
+    sign_in(user)
+    click_link old_vote.review.book.title
+    click_link "Vote"
+    click_link "Down Vote"
+    new_vote = Vote.where(user_id: user.id, review_id: old_vote.review_id).first
+
+    expect(new_vote.down_vote).to eq(true)
+    expect(new_vote.up_vote).to eq(false)
+    expect(Vote.all.size).to eq(1)
+  end
+
+  scenario "User successfully changes their vote from down vote to up vote" do
+    old_vote = FactoryGirl.create(:vote, up_vote: false, down_vote: true)
+    user = old_vote.user
+    sign_in(user)
+    click_link old_vote.review.book.title
+    click_link "Vote"
+    click_link "Up Vote"
+    new_vote = Vote.where(user_id: user.id, review_id: old_vote.review_id).first
+
+    expect(new_vote.down_vote).to eq(false)
+    expect(new_vote.up_vote).to eq(true)
+    expect(Vote.all.size).to eq(1)
+  end
+
+  scenario "Unauthenticated user unsuccessfully attempts to edit a vote" do
+    vote = FactoryGirl.create(:vote)
+    visit root_path
+    click_link vote.review.book.title
+    click_link "Vote"
+    click_link "Down Vote"
+
+    expect(vote.down_vote).to eq(false)
+    expect(vote.up_vote).to eq(true)
+    expect(Vote.all.size).to eq(1)
+    expect(page).to have_content("Join the cool kids! Sign in to cast your vote!")
+  end
+
+  scenario "Authenticated user views voting status before they've created a vote" do
     review = FactoryGirl.create(:review)
-    book = Book.where(id: review.book_id).first
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link book.title
-    click_link "Up Vote"
-    click_link "Down Vote"
-    vote = Vote.where(user_id: user.id).first
+    click_link review.book.title
+    click_link "Vote"
 
-    expect(vote.up_vote).to eq(false)
-    expect(vote.down_vote).to eq(true)
-    expect(vote.review_id).to eq(review.id)
+    expect(page).to have_content("Voting Status: None")
   end
 
-  scenario "An unauthenticated user can not change a vote" do
+  scenario "Unauthenticated user doesn't view a vote status" do
     vote = FactoryGirl.create(:vote)
-    review = Review.where(id: vote.review_id).first
-    book = Book.where(id: review.book_id).first
     visit root_path
-    click_link book.title
-    click_link "Down Vote"
+    click_link vote.review.book.title
+    click_link "Vote"
 
-    expect(page).to have_content("You must be signed in to vote")
-  end
-
-  scenario "An authenticated user can not change a vote for a review they've created" do
-    vote = FactoryGirl.create(:vote)
-    review = Review.where(id: vote.review_id).first
-    book = Book.where(id: review.book_id).first
-    user = User.where(id: review.user_id).first
-    sign_in(user)
-    click_link book.title
-    click_link "Down Vote"
-
-    expect(page).to have_content("You can't vote for your own review")
+    expect(page).to have_content("Voting Status: None")
+    expect(vote.up_vote).to eq(true)
   end
 end

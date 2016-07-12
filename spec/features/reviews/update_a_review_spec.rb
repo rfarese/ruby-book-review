@@ -13,7 +13,7 @@ RSpec.feature "User updates a review", type: :feature do
 
   def navigate_and_edit_review
     click_link book.title
-    click_link "Edit Review"
+    click_link "Edit"
     fill_in "Title", with: "Edited Review Title"
     fill_in "Description", with: "Edited Review Description"
     click_button "Save"
@@ -24,7 +24,7 @@ RSpec.feature "User updates a review", type: :feature do
     visit root_path
     navigate_and_edit_review
 
-    expect(page).to have_selector("h1", text: "Edit Review")
+    expect(page).to have_selector("h1", text: "Edit")
     expect(page).to have_content("You must be signed in to edit a review")
   end
 
