@@ -22,7 +22,6 @@ group :development, :test do
   gem 'valid_attribute'
   gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
-  gem 'teaspoon-jasmine'
 end
 
 group :test do
