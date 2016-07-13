@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "User creates a new book", type: :feature do
+RSpec.feature "User creates a new book;", type: :feature do
 
   let(:user) { FactoryGirl.create(:user) }
 
@@ -8,7 +8,6 @@ RSpec.feature "User creates a new book", type: :feature do
     fill_in "Title", with: "Some Title"
     fill_in "Author", with: "Some Author"
     fill_in "Description", with: "This is some new description for testing purposes"
-    fill_in "Book cover photo", with: "www.someurlforaphoto.com"
     click_button "Submit Book"
   end
 
@@ -20,7 +19,7 @@ RSpec.feature "User creates a new book", type: :feature do
     expect(page).to have_content("Title")
     expect(page).to have_content("Author")
     expect(page).to have_content("Description")
-    expect(page).to have_content("Book cover photo")
+    expect(page).to have_content("Cover photo")
   end
 
   scenario "an unauthenticated user can not create a new book" do

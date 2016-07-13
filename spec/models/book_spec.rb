@@ -10,7 +10,7 @@ RSpec.describe Book, type: :model do
   it { should have_valid(:description).when("This is a description and it is a really good one at that.") }
   it { should_not have_valid(:description).when(nil, "") }
 
-  it { should have_valid(:book_cover_photo).when(nil, "", "http://www.someurl.com") }
+  it { should have_valid(:cover_photo).when(nil, "", "http://www.someurl.com") }
 
   describe "#rankings" do
     it "returns an array of rank objects" do

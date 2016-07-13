@@ -101,7 +101,7 @@ class BooksController < ApplicationController
 
   private
     def book_params
-      params_hash = params.require(:book).permit(:title, :author, :description, :book_cover_photo)
+      params_hash = params.require(:book).permit(:title, :author, :description, :cover_photo)
       new_hash = { user_id: current_user.id }
       new_hash.merge!(params_hash)
     end

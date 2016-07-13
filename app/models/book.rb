@@ -6,6 +6,8 @@ class Book < ActiveRecord::Base
   validates :author, presence: true
   validates :description, presence: true, uniqueness: true
 
+  mount_uploader :cover_photo, CoverPhotoUploader
+
   def rankings
     Rank.where(book_id: self.id)
   end

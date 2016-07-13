@@ -1,5 +1,7 @@
 <h1><%= @book.title %></h1>
 
+<%= image_tag @book.cover_photo.path if @book.cover_photo? %><br>
+
 <% if user_signed_in? %>
   <%= link_to "Edit Book", edit_book_path(@book) %>
 <% end %>
