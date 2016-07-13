@@ -37,7 +37,7 @@ class VotesController < ApplicationController
     else
       flash[:notice] = "Join the cool kids! Sign in to cast your vote!"
     end
-    redirect_to book_path(@book)
+    redirect_to new_review_vote_path(@review)
   end
 
   def do_user_ids_match_update?(review, vote)
@@ -59,7 +59,7 @@ class VotesController < ApplicationController
     else
       flash[:notice] = "You must be signed in to vote"
     end
-    redirect_to book_path(@book)
+    redirect_to new_review_vote_path(@review)
   end
 
 
@@ -80,7 +80,7 @@ class VotesController < ApplicationController
     else
       flash[:notice] = "You must be signed in to delete a vote"
     end
-    redirect_to book_path(@review.book)
+    redirect_to new_review_vote_path(@review)
   end
 
   private

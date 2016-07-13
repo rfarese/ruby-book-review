@@ -22,6 +22,8 @@ group :development, :test do
   gem 'valid_attribute'
   gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
+  gem 'jasmine'
+  gem 'poltergeist'
 end
 
 group :test do

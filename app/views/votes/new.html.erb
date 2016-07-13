@@ -4,13 +4,17 @@
 
 <% if @voting_status == "None" %>
 <h2>Create a New Vote</h2>
-<%= link_to "Up Vote", review_votes_path(@review, up_vote: true, down_vote: false), method: :post %>
-<%= link_to "Down Vote", review_votes_path(@review, up_vote: false, down_vote: true), method: :post %>
+<ul>
+  <li><%= link_to "Up Vote", review_votes_path(@review, up_vote: true, down_vote: false), method: :post, id: "up-vote-post" %></li>
+  <li><%= link_to "Down Vote", review_votes_path(@review, up_vote: false, down_vote: true), method: :post, id: "down-vote-post" %></li>
+</ul>
 <% end %>
 
 <% if @voting_status != "None" %>
 <h2>Edit Your Vote</h2>
-<%= link_to "Up Vote", review_vote_path(@review, @vote, up_vote: true, down_vote: false), method: :patch %>
-<%= link_to "Down Vote", review_vote_path(@review, @vote, up_vote: false, down_vote: true), method: :patch %>
-<%= link_to "Delete Vote", review_vote_path(@review, @vote), method: :delete %>
+<ul>
+  <li><%= link_to "Up Vote", review_vote_path(@review, @vote, up_vote: true, down_vote: false), method: :patch, id: "up-vote-patch" %></li>
+  <li><%= link_to "Down Vote", review_vote_path(@review, @vote, up_vote: false, down_vote: true), method: :patch, id: "down_vote-patch" %></li>
+  <li><%= link_to "Delete Vote", review_vote_path(@review, @vote), method: :delete, id: "vote-delete" %></li>
+</ul>
 <% end %>
