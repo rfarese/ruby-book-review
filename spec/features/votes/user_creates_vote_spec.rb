@@ -5,16 +5,6 @@ RSpec.feature "User creates a vote;", type: :feature do
   let(:book) { Book.where(id: review.book_id).first }
   let(:user) { FactoryGirl.create(:user) }
 
-  def get_book_and_review
-    review
-    book
-  end
-
-  def navigate_and_vote
-    click_link book.title
-    click_link "Up Vote"
-  end
-
   scenario "User views 'Vote' link on book show page next to each review" do
     review
     book

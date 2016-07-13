@@ -12,5 +12,5 @@
 <h2>Edit Your Vote</h2>
 <%= link_to "Up Vote", review_vote_path(@review, @vote, up_vote: true, down_vote: false), method: :patch %>
 <%= link_to "Down Vote", review_vote_path(@review, @vote, up_vote: false, down_vote: true), method: :patch %>
-<%= link_to "Delete Vote", "#"%>
+<%= link_to "Delete Vote", review_vote_path(@review, @vote), method: :delete %>
 <% end %>

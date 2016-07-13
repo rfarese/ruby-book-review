@@ -1,55 +1,106 @@
 require 'rails_helper'
 
-RSpec.feature "User deletes a vote", type: :feature do
-  let(:vote) { FactoryGirl.create(:vote) }
-  let(:review) { Review.where(id: vote.review_id).first }
-  let(:book) { Book.where(id: review.book_id).first }
+RSpec.feature "User deletes a vote;", type: :feature do
 
-# Acceptance Criteria:
-  # User views the "Delete" link on the voting page
-  # If a user has already created a vote for that review:
-    # disply "Delete" link
-  # user successfully deletes the vote
-  # unauthenticated user unsuccessfully deletes the vote
-  # authenticated user unsuccessfully deletes a vote they didn't create 
+  scenario "An authenticated user views the 'Delete' link on the voting page for a review they've already voted on" do
+    vote = FactoryGirl.create(:vote)
+    user = vote.user
+    sign_in(user)
+    click_link vote.review.book.title
+    click_link "Vote"
 
-  def get_vote_review_and_book
-    vote
-    review
-    book
+    expect(page).to have_link("Delete Vote")
   end
 
-  def navigate_and_delete_vote
-    click_link book.title
+  scenario "An authenticated user doesn't view 'Delete' link if they have't voted for that review" do
+    vote = FactoryGirl.create(:vote)
+    user = FactoryGirl.create(:user)
+    sign_in(user)
+    click_link vote.review.book.title
+    click_link "Vote"
+
+    expect(page).to_not have_link("Delete Vote")
+  end
+
+  scenario "An unauthenticated user doesn't view the 'Delete' link" do
+    vote = FactoryGirl.create(:vote)
+    visit root_path
+    click_link vote.review.book.title
+    click_link "Vote"
+
+    expect(page).to_not have_link("Delete Vote")
+  end
+
+  scenario "User successfully deletes a vote" do
+    vote = FactoryGirl.create(:vote)
+    user = vote.user
+    sign_in(user)
+    click_link vote.review.book.title
+    click_link "Vote"
     click_link "Delete Vote"
-  end
 
-  scenario "An authenticated user deletes a vote for a review that they haven't created" do
-    get_vote_review_and_book
-    user = User.where(id: vote.user_id).first
-    sign_in(user)
-    navigate_and_delete_vote
-
-    expect(page).to have_content("Your vote has been removed")
     expect(Vote.all.size).to eq(0)
+    expect(page).to have_content("Hasta la vista...vote!")
   end
 
-  scenario "An authenticated user can not delete a vote for a review that they have created" do
-    get_vote_review_and_book
-    user = User.where(id: review.user_id).first
-    sign_in(user)
-    navigate_and_delete_vote
+  scenario "A user deletes one of two votes for two different reviews on the same book" do
+    review = FactoryGirl.create(:review)
+    second_review = FactoryGirl.create(:review, book_id: review.book_id)
+    vote = FactoryGirl.create(:vote, review_id: review.id)
+    second_vote = FactoryGirl.create(:vote, review_id: second_review.id, user_id: vote.user_id)
+    sign_in(vote.user)
+    click_link review.book.title
+    within("#review_#{review.id}") do
+      click_link "Vote"
+    end
+    click_link "Delete Vote"
 
-    expect(page).to have_content("You can not delete a vote for a review you created")
+    expect(Vote.all.size).to eq(1)
+    expect(vote.user).to eq(second_vote.user)
+    expect(review.book).to eq(second_review.book)
+  end
+
+  scenario "A user deletes one of two votes for different reviews on two different books" do
+    vote = FactoryGirl.create(:vote)
+    second_vote = FactoryGirl.create(:vote, user_id: vote.user_id)
+    sign_in(vote.user)
+    click_link vote.review.book.title
+    click_link "Vote"
+    click_link "Delete Vote"
+
     expect(Vote.all.size).to eq(1)
   end
 
-  scenario "An unauthenticated user can not delete a vote" do
-    get_vote_review_and_book
+  scenario "An unauthenticated user unsuccessfully attempts to delete a vote" do
+    vote = FactoryGirl.create(:vote)
     visit root_path
-    navigate_and_delete_vote
+    click_link vote.review.book.title
+    click_link "Vote"
+    attributes = {
+      review_id: vote.review_id,
+      user_id: vote.user_id,
+      id: vote.id
+    }
+    Capybara.current_session.driver.submit :delete, review_vote_path(vote.review, vote), attributes
+    visit book_path(vote.review.book)
 
-    expect(page).to have_content("You must be signed in to delete a vote")
+    expect(Vote.all.size).to eq(1)
+  end
+
+  scenario "An authenticated user unsuccessfully attempts to delete someone elses vote" do
+    vote = FactoryGirl.create(:vote)
+    user = FactoryGirl.create(:user)
+    sign_in(user)
+    click_link vote.review.book.title
+    click_link "Vote"
+    attributes = {
+      review_id: vote.review_id,
+      user_id: vote.user_id,
+      id: vote.id
+    }
+    Capybara.current_session.driver.submit :delete, review_vote_path(vote.review, vote), attributes
+    visit book_path(vote.review.book)
+
     expect(Vote.all.size).to eq(1)
   end
 end

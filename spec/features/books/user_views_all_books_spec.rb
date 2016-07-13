@@ -41,6 +41,6 @@ RSpec.feature "User views a list of all books;", type: :feature do
     click_link "2"
 
     expect(page).to have_content(books[25].title)
-    expect(page).to_not have_content(books[24].title)
+    expect(page).to_not have_content(books[20].title)
   end
 end

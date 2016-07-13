@@ -64,24 +64,23 @@ class VotesController < ApplicationController
 
 
   def do_user_ids_match_destroy(review, vote)
-    if current_user.id != review.user_id
+    if current_user.id == vote.user_id
       vote.destroy
-      flash[:notice] = "Your vote has been removed"
+      flash[:notice] = "Hasta la vista...vote!"
     else
-      flash[:notice] = "You can not delete a vote for a review you created"
+      flash[:notice] = "You can not delete someone elses vote"
     end
   end
 
   def destroy
-    @book = Book.find(params[:id])
     @review = Review.find(params[:review_id])
     if user_signed_in?
-      @vote = Vote.where(user_id: current_user.id, review_id: params[:review_id]).first
+      @vote = Vote.where(id: params[:id]).first
       do_user_ids_match_destroy(@review, @vote)
     else
       flash[:notice] = "You must be signed in to delete a vote"
     end
-    redirect_to book_path(@book)
+    redirect_to book_path(@review.book)
   end
 
   private
