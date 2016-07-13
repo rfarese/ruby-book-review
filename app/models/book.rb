@@ -1,7 +1,7 @@
 class Book < ActiveRecord::Base
   belongs_to :user
-  has_many :reviews
-  has_many :ranks
+  has_many :reviews, dependent: :destroy
+  has_many :ranks, dependent: :destroy
   validates :title, presence: true, uniqueness: true
   validates :author, presence: true
   validates :description, presence: true, uniqueness: true

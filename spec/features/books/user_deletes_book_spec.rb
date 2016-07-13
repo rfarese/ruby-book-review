@@ -29,7 +29,6 @@ RSpec.feature "User deletes a book", type: :feature do
   scenario "authenticated user views delete link on the edit book page" do
     book
     sign_in(user)
-    visit root_path
     click_link book.title
     click_link "Edit Book"
 
@@ -39,7 +38,6 @@ RSpec.feature "User deletes a book", type: :feature do
   scenario "authenticated user's id doesn't match the book user id and fails to delete a book" do
     book
     sign_in(user)
-    visit root_path
     click_link book.title
     click_link "Edit Book"
     click_link "Delete Book"
@@ -49,13 +47,26 @@ RSpec.feature "User deletes a book", type: :feature do
 
   scenario "authenticated user successfully deletes a book that they've created" do
     book
-    current_user = User.where(id: book.user_id).first
+    current_user = book.user
     sign_in(current_user)
-    visit root_path
     click_link book.title
     click_link "Edit Book"
     click_link "Delete Book"
 
     expect(page).to have_content("You've successfully deleted the book")
+    expect(Book.all.size).to eq(0)
+  end
+
+  scenario "user successfully deletes book and all corresponding data for that book is also removed" do
+    vote = FactoryGirl.create(:vote)
+    user = vote.review.book.user
+    sign_in(user)
+    click_link vote.review.book.title
+    click_link "Edit Book"
+    click_link "Delete Book"
+
+    expect(Book.all.size).to eq(0)
+    expect(Vote.all.size).to eq(0)
+    expect(Review.all.size).to eq(0)
   end
 end
