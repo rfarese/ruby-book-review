@@ -8,18 +8,14 @@ class Book < ActiveRecord::Base
 
   mount_uploader :cover_photo, CoverPhotoUploader
 
-  def rankings
-    Rank.where(book_id: self.id)
-  end
-
   def num_of_rankings
-    rankings.size.round(1)
+    ranks.size.round(1)
   end
 
   def rankings_sum
     sum = 0.0
-    rankings.each do |ranking|
-      sum += ranking.rank.round(1)
+    ranks.each do |rank|
+      sum += rank.rank.round(1)
     end
     sum
   end
