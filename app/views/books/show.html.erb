@@ -9,7 +9,7 @@
 <ul>
   <li>Author: <%= @book.author %></li>
   <li>Description: <%= @book.description %></li>
-  <% if @book.rankings == [] %>
+  <% if @book.ranks == [] %>
     <li>There is no average ranking for this book</li>
   <% else %>
     <li>Average Ranking: <%= @book.average_rank %></li>

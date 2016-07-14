@@ -1,4 +1,4 @@
 <%= simple_form_for [@book, @rank] do |f| %>
-  <%= f.input :rank, collection: 1..5, as: :radio_buttons %>
+  <%= f.input :score, collection: 1..5, as: :radio_buttons %>
   <%= f.submit "Save Rank" %>
 <% end %>

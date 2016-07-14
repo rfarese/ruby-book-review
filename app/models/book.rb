@@ -15,7 +15,7 @@ class Book < ActiveRecord::Base
   def rankings_sum
     sum = 0.0
     ranks.each do |rank|
-      sum += rank.rank.round(1)
+      sum += rank.score.round(1)
     end
     sum
   end

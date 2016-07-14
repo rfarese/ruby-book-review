@@ -16,7 +16,7 @@ RSpec.feature "User views average book rank;", type: :feature do
     visit root_path
     click_link book.title
 
-    expect(page).to have_content("Average Ranking: #{rank.rank}")
+    expect(page).to have_content("Average Ranking: #{rank.score}")
   end
 
   scenario "An authenticated user views the average book ranking on the book show page" do
@@ -26,7 +26,7 @@ RSpec.feature "User views average book rank;", type: :feature do
     sign_in(user)
     click_link book.title
 
-    expect(page).to have_content("Average Ranking: #{rank.rank}")
+    expect(page).to have_content("Average Ranking: #{rank.score}")
   end
 
   scenario "User views a book with no average ranking" do

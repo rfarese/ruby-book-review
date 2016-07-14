@@ -25,9 +25,9 @@ RSpec.feature "User views a books details", type: :feature do
   end
 
   scenario "user views the books average ranking" do
-    rank = FactoryGirl.create(:rank, rank: 1)
-    second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 2)
-    third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 1)
+    rank = FactoryGirl.create(:rank, score: 1)
+    second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 2)
+    third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 1)
     book = Book.where(id: rank.book_id).first
 
     visit root_path

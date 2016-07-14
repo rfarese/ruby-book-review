@@ -30,6 +30,7 @@ class RanksController < ApplicationController
       render 'edit'
     end
   end
+
   def do_user_ids_match?(rank, book)
     if current_user.id == rank.user_id
       does_rank_update?(rank, book)
@@ -74,7 +75,7 @@ class RanksController < ApplicationController
 
   private
     def rank_params
-      params_hash = params.require(:rank).permit(:rank)
+      params_hash = params.require(:rank).permit(:score)
       new_hash = { book_id: params[:book_id], user_id: current_user.id }
       new_hash.merge!(params_hash)
     end

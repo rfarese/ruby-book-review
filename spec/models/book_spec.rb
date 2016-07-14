@@ -14,21 +14,21 @@ RSpec.describe Book, type: :model do
 
   describe "#rankings" do
     it "returns an array of rank objects" do
-      rank = FactoryGirl.create(:rank, rank: 1)
-      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 2)
-      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 1)
+      rank = FactoryGirl.create(:rank, score: 1)
+      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 2)
+      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 1)
       book = Book.where(id: rank.book_id).first
 
-      expect(book.rankings.size).to eq(3)
-      expect(book.rankings.first).to be_instance_of(Rank)
+      expect(book.ranks.size).to eq(3)
+      expect(book.ranks.first).to be_instance_of(Rank)
     end
   end
 
   describe "#num_of_rankings" do
     it "gives the total number of rankings for the book" do
-      rank = FactoryGirl.create(:rank, rank: 1)
-      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 2)
-      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 1)
+      rank = FactoryGirl.create(:rank, score: 1)
+      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 2)
+      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 1)
       book = Book.where(id: rank.book_id).first
 
       expect(book.num_of_rankings).to eq(3)
@@ -37,9 +37,9 @@ RSpec.describe Book, type: :model do
 
   describe "#rankings_sum" do
     it "gives the sum of all the rankings" do
-      rank = FactoryGirl.create(:rank, rank: 1)
-      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 2)
-      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 1)
+      rank = FactoryGirl.create(:rank, score: 1)
+      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 2)
+      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 1)
       book = Book.where(id: rank.book_id).first
 
       expect(book.rankings_sum).to eq(4)
@@ -48,9 +48,9 @@ RSpec.describe Book, type: :model do
 
   describe "#average_rank" do
     it "gives the average rank of all the rankings" do
-      rank = FactoryGirl.create(:rank, rank: 1)
-      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 2)
-      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, rank: 1)
+      rank = FactoryGirl.create(:rank, score: 1)
+      second_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 2)
+      third_rank = FactoryGirl.create(:rank, book_id: rank.book_id, score: 1)
       book = Book.where(id: rank.book_id).first
 
       expect(book.average_rank).to eq(1.3)

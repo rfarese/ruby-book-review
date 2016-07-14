@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :rank do
-    rank [1, 2, 4, 5].sample
+    score [1, 2, 4, 5].sample
 
     association :book, factory: :book
     association :user, factory: :user

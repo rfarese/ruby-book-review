@@ -33,11 +33,11 @@ RSpec.feature "User edits a book rank;", type: :feature do
     sign_in(user)
     click_link book.title
     click_link "Edit Rank"
-    choose('rank_rank_3')
+    choose('rank_score_3')
     click_button "Save Rank"
     edited_rank = Rank.where(id: rank.id).first
 
-    expect(edited_rank.rank).to eq(3)
+    expect(edited_rank.score).to eq(3)
   end
 
   scenario "Unauthenticated user unsuccessfully attempts to edit a book rank" do
@@ -46,7 +46,7 @@ RSpec.feature "User edits a book rank;", type: :feature do
     visit root_path
     click_link book.title
 
-    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {rank: 3}
+    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {score: 3}
 
     expect(page).to have_content("You must be signed in to edit a book ranking")
   end
@@ -58,7 +58,7 @@ RSpec.feature "User edits a book rank;", type: :feature do
     sign_in(user)
     click_link book.title
 
-    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {rank: 3}
+    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {score: 3}
 
     expect(page).to have_content("You can only edit a rank you've created")
   end
