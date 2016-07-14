@@ -23,4 +23,13 @@ class Book < ActiveRecord::Base
   def average_rank
     (rankings_sum / num_of_rankings).round(1)
   end
+
+  def best_review
+    best_review = reviews.first
+
+    reviews.each do |review|
+      best_review = review if review.number_of_votes > best_review.number_of_votes
+    end
+    best_review
+  end
 end

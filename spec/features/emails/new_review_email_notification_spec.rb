@@ -13,13 +13,13 @@ RSpec.feature "User recieves a 'new review' email alert;", type: :feature do
 
   scenario "book creator recieves an email alert when an authenticated user successfully creates a review" do
     book
-    book_creator = User.where(id: book.user_id).first
+    book_creator = book.user
     sign_in(user)
     navigate_and_fill_in_review
 
     expect(page).to have_content("You've successfully added your new review!")
     expect(Review.all.size).to eq(1)
     expect(ActionMailer::Base.deliveries.size).to eq(1)
-    # last_email = ActionMailer::Base.deliveries.last
+    last_email = ActionMailer::Base.deliveries.last
   end
 end
