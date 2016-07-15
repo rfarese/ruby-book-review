@@ -56,4 +56,39 @@ RSpec.describe Book, type: :model do
       expect(book.average_rank).to eq(1.3)
     end
   end
+
+  describe "#best_review" do
+    it "finds the review with the most amount of up votes" do
+      review = FactoryGirl.create(:review)
+      book = review.book
+      second_review = FactoryGirl.create(:review, book_id: review.book_id)
+      third_review = FactoryGirl.create(:review, book_id: review.book_id)
+      vote = FactoryGirl.create(:vote, review_id: review.id)
+      second_vote = FactoryGirl.create(:vote, review_id: second_review.id)
+      third_vote = FactoryGirl.create(:vote, review_id: second_review.id, up_vote: false, down_vote: true)
+      fourth_vote = FactoryGirl.create(:vote, review_id: third_review.id)
+      fifth_vote = FactoryGirl.create(:vote, review_id: third_review.id)
+      sixth_vote = FactoryGirl.create(:vote, review_id: third_review.id, up_vote: false, down_vote: true)
+      seventh_vote = FactoryGirl.create(:vote, review_id: third_review.id, up_vote: false, down_vote: true)
+
+      expect(review.book).to eq(second_review.book)
+      expect(second_review.book).to eq(third_review.book)
+      expect(book.best_review).to eq(review)
+    end
+  end
+
+  describe "#has_reviews?" do
+    it "returns true if the book has any reviews" do
+      book = FactoryGirl.create(:book)
+      review = FactoryGirl.create(:review, book_id: book.id)
+
+      expect(book.has_reviews?).to eq(true)
+    end
+
+    it "returns false if the book doesn't have any reviews" do
+      book = FactoryGirl.create(:book)
+
+      expect(book.has_reviews?).to eq(false)
+    end
+  end
 end

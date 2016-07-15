@@ -18,3 +18,5 @@
   <li><%= link_to "Delete Vote", review_vote_path(@review, @vote), method: :delete, id: "vote-delete" %></li>
 </ul>
 <% end %>
+
+<%= link_to "Back", book_path(@review.book) %>

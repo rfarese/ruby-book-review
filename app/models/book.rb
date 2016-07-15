@@ -28,8 +28,12 @@ class Book < ActiveRecord::Base
     best_review = reviews.first
 
     reviews.each do |review|
-      best_review = review if review.number_of_votes > best_review.number_of_votes
+      best_review = review if review.score > best_review.score
     end
     best_review
+  end
+
+  def has_reviews?
+    reviews != [] && reviews != nil
   end
 end

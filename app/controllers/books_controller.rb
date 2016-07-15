@@ -13,12 +13,17 @@ class BooksController < ApplicationController
     end
   end
 
+  # def has_best_review?
+  #   if @book.best_review
+  # end
+
   def show
     if user_signed_in?
       has_user_ranked_book?
     end
     @book = Book.find(params[:id])
     @reviews = @book.reviews.page(params[:page])
+    @best_review = @book.best_review if @book.has_reviews? && @book.best_review.has_votes?
   end
 
   def new

@@ -25,6 +25,14 @@
   <% end %>
 </ul>
 
+<% if @best_review %>
+  <div id="best-book-review">
+    <h2>Best Book Review</h2>
+    <p>Title: <%= @book.best_review.title %></p>
+    <p>Description: <%= @book.best_review.description %></p>
+  </div>
+<% end %>
+
 <h2>Book Reviews</h2>
 <table>
   <thead>
