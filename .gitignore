@@ -15,5 +15,8 @@
 # in /.gitignore:
 /.env
 
+# ignore environment variables
+.env
+
 # Ignore uploaded files in test/development
 /public/uploads

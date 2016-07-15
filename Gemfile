@@ -13,6 +13,7 @@ gem 'simple_form'
 gem 'puma'
 gem 'kaminari'
 gem 'carrierwave'
+gem 'fog-aws'
 
 group :development, :test do
   gem 'capybara'
@@ -25,6 +26,7 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'jasmine'
   gem 'poltergeist'
+  gem "dotenv-rails"
 end
 
 group :test do
