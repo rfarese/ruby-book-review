@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "User views a books best review;", type: :feature do
 
-  scenario "User views the best review" do
+  scenario "User views the best review on the book show page" do
     review = FactoryGirl.create(:review)
     second_review = FactoryGirl.create(:review, book_id: review.book_id)
     vote = FactoryGirl.create(:vote, review_id: review.id)
