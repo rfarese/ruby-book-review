@@ -13,9 +13,13 @@ class BooksController < ApplicationController
     end
   end
 
-  # def has_best_review?
-  #   if @book.best_review
-  # end
+  def set_cover_photo(book)
+    if Rails.env.test?
+      @cover_photo = book.cover_photo.path
+    else
+      @cover_photo = book.cover_photo.url
+    end
+  end
 
   def show
     if user_signed_in?
@@ -24,6 +28,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @reviews = @book.reviews.page(params[:page])
     @best_review = @book.best_review if @book.has_reviews? && @book.best_review.has_votes?
+    set_cover_photo(@book)
   end
 
   def new
