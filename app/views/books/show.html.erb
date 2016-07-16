@@ -6,15 +6,7 @@
   <%= link_to "Edit Book", edit_book_path(@book) %>
 <% end %>
 
-<ul>
-  <li>Author: <%= @book.author %></li>
-  <li>Description: <%= @book.description %></li>
-  <% if @book.ranks == [] %>
-    <li>There is no average ranking for this book</li>
-  <% else %>
-    <li>Average Ranking: <%= @book.average_rank %></li>
-  <% end %>
-</ul>
+<%= render 'book_details' %>
 
 <ul>
   <% if @rank %>
@@ -28,8 +20,8 @@
 <% if @best_review %>
   <div id="best-book-review">
     <h2>Best Book Review</h2>
-    <p>Title: <%= @book.best_review.title %></p>
-    <p>Description: <%= @book.best_review.description %></p>
+    <p>Title: <%= @best_review.title %></p>
+    <p>Description: <%= @best_review.description %></p>
   </div>
 <% end %>
 

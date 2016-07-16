@@ -14,6 +14,7 @@ gem 'puma'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'fog-aws'
+gem 'react-rails'
 
 group :development, :test do
   gem 'capybara'
