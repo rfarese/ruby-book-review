@@ -1,3 +1,4 @@
+
 Dir[File.dirname(__FILE__) + '/support/*.rb'].each { |file| require file }
 
 RSpec.configure do |config|
@@ -10,8 +11,11 @@ RSpec.configure do |config|
   end
 
   config.before :each do
-    ActionMailer::Base.deliveries.clear 
+    ActionMailer::Base.deliveries.clear
   end
+
+  # tried added this to help with the API controller testing...
+  # config.include Devise::TestHelpers, type: :controller
 
   config.include UserSignInHelper
 end

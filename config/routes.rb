@@ -14,4 +14,10 @@ Rails.application.routes.draw do
   resources :books, only: [] do
     resources :ranks
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :books, only: [:create]
+    end
+  end
 end
