@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "User edits a vote;", type: :feature do
 
-  scenario "User views the ability to edit their vote on the voting page" do
+  scenario "User views the ability to edit their vote on the voting page", js: true do
     vote = FactoryGirl.create(:vote)
     book = vote.review.book
     user = vote.user
@@ -13,7 +13,7 @@ RSpec.feature "User edits a vote;", type: :feature do
     expect(page).to have_content("Edit Your Vote")
   end
 
-  scenario "User views their current voting status for a review they'd previously up voted" do
+  scenario "User views their current voting status for a review they'd previously up voted", js: true do
     vote = FactoryGirl.create(:vote)
     book = vote.review.book
     user = vote.user
@@ -24,7 +24,7 @@ RSpec.feature "User edits a vote;", type: :feature do
     expect(page).to have_content("Voting Status: Up Voted")
   end
 
-  scenario "User views their current voting status for a review they'd previously down voted" do
+  scenario "User views their current voting status for a review they'd previously down voted", js: true do
     vote = FactoryGirl.create(:vote, up_vote: false, down_vote: true)
     user = vote.user
     sign_in(user)
@@ -35,7 +35,7 @@ RSpec.feature "User edits a vote;", type: :feature do
   end
 
 
-  scenario "User successfully changes their vote from up vote to down vote" do
+  scenario "User successfully changes their vote from up vote to down vote", js: true do
     old_vote = FactoryGirl.create(:vote)
     user = old_vote.user
     sign_in(user)
@@ -49,7 +49,7 @@ RSpec.feature "User edits a vote;", type: :feature do
     expect(Vote.all.size).to eq(1)
   end
 
-  scenario "User successfully changes their vote from down vote to up vote" do
+  scenario "User successfully changes their vote from down vote to up vote", js: true do
     old_vote = FactoryGirl.create(:vote, up_vote: false, down_vote: true)
     user = old_vote.user
     sign_in(user)
@@ -63,7 +63,7 @@ RSpec.feature "User edits a vote;", type: :feature do
     expect(Vote.all.size).to eq(1)
   end
 
-  scenario "Unauthenticated user unsuccessfully attempts to edit a vote" do
+  scenario "Unauthenticated user unsuccessfully attempts to edit a vote", js: true do
     vote = FactoryGirl.create(:vote)
     visit root_path
     click_link vote.review.book.title
@@ -76,7 +76,7 @@ RSpec.feature "User edits a vote;", type: :feature do
     expect(page).to have_content("Join the cool kids! Sign in to cast your vote!")
   end
 
-  scenario "Authenticated user views voting status before they've created a vote" do
+  scenario "Authenticated user views voting status before they've created a vote", js: true do
     review = FactoryGirl.create(:review)
     user = FactoryGirl.create(:user)
     sign_in(user)
@@ -86,7 +86,7 @@ RSpec.feature "User edits a vote;", type: :feature do
     expect(page).to have_content("Voting Status: None")
   end
 
-  scenario "Unauthenticated user doesn't view a vote status" do
+  scenario "Unauthenticated user doesn't view a vote status", js: true do
     vote = FactoryGirl.create(:vote)
     visit root_path
     click_link vote.review.book.title

@@ -1,7 +1,7 @@
 class Api::V1::BooksController < Api::V1::ApiController
-
   def index
-    render json: Book.all
+    data = Book.all
+    render json: data
   end
 
   def save_book(book)

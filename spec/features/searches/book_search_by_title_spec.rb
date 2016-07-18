@@ -17,17 +17,16 @@ RSpec.feature "User searches for a book by title;", type: :feature do
     expect(page).to have_css("#search-form")
   end
 
-  scenario "User views search results (book title & author) on books show page" do
+  scenario "User views search results (book title) on books show page" do
     book
     second_book = FactoryGirl.create(:book)
     visit_root_complete_search
 
     expect(page).to have_content(book.title)
-    expect(page).to have_content(book.author)
     expect(page).to_not have_content(second_book.title)
   end
 
-  scenario "User navigates from search results page to the books show page" do
+  scenario "User navigates from search results page to the books show page", js: true do
     book
     visit_root_complete_search
     click_link book.title

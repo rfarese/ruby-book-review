@@ -15,7 +15,6 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'fog-aws'
 gem 'react-rails'
-gem "active_model_serializers"
 
 group :development, :test do
   gem 'capybara'

@@ -2,10 +2,6 @@
 
 <h2><%= link_to "Add a New Book", new_book_path %></h2>
 
-<ul>
-  <% @books.each do |book| %>
-    <li id="<%= dom_id(book) %>"><%= link_to "#{book.title}", book_path(book) %> by <%= book.author %></li>
-  <% end %>
-</ul>
+<%= react_component "BooksContainer", booksPath: api_v1_books_path %>
 
 <%= paginate @books %>
