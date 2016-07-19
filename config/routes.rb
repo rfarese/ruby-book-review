@@ -20,4 +20,6 @@ Rails.application.routes.draw do
       resources :books, only: [:create]
     end
   end
+
+  get 'search' => 'books#search'
 end
