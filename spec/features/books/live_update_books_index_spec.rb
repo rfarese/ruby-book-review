@@ -13,7 +13,6 @@ RSpec.feature "User views the list of books automatically updating;", type: :fea
       sign_in(user)
       book = FactoryGirl.create(:book)
 
-
       expect(page).to have_content(book.title)
     end
   end

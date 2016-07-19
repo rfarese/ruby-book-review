@@ -8,7 +8,7 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     reviews
   end
 
-  scenario "User views a book's reviews on the book's show page" do
+  scenario "User views a book's reviews on the book's show page", js: true do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
@@ -17,7 +17,7 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     expect(page).to have_content("Book Reviews")
   end
 
-  scenario "User views the book reivews title and description" do
+  scenario "User views the book reivews title and description", js: true do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
@@ -27,7 +27,7 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     expect(page).to have_content(review.description)
   end
 
-  scenario "User only views 25 reviews per page" do
+  scenario "User only views 25 reviews per page", js: true do
     book = FactoryGirl.create(:book)
     reviews = add_reviews(book, 30)
     visit root_path
@@ -37,7 +37,7 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     expect(page).to_not have_content(reviews[25].title)
   end
 
-  scenario "User navigates to additional pages to view the next set of reviews" do
+  scenario "User navigates to additional pages to view the next set of reviews", js: true do
     book = FactoryGirl.create(:book)
     reviews = add_reviews(book, 30)
     visit root_path

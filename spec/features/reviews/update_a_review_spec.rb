@@ -19,7 +19,7 @@ RSpec.feature "User updates a review", type: :feature do
     click_button "Save"
   end
 
-  scenario "an unauthenticated unsuccesfully attemtps to edit a review" do
+  scenario "an unauthenticated unsuccesfully attemtps to edit a review", js: true do
     get_book_and_review
     visit root_path
     navigate_and_edit_review
@@ -28,7 +28,7 @@ RSpec.feature "User updates a review", type: :feature do
     expect(page).to have_content("You must be signed in to edit a review")
   end
 
-  scenario "an authenticated user successfully updates a review" do
+  scenario "an authenticated user successfully updates a review", js: true do
     get_book_and_review
     sign_in(review_creating_user)
     navigate_and_edit_review
@@ -38,7 +38,7 @@ RSpec.feature "User updates a review", type: :feature do
     expect(page).to have_content("Edited Review Description")
   end
 
-  scenario "an authenticated users id doesn't match the user id of the review creator" do
+  scenario "an authenticated users id doesn't match the user id of the review creator", js: true do
     get_book_and_review
     sign_in(no_review_creating_user)
     navigate_and_edit_review

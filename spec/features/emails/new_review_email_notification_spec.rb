@@ -11,7 +11,7 @@ RSpec.feature "User recieves a 'new review' email alert;", type: :feature do
     click_button "Submit Review"
   end
 
-  scenario "book creator recieves an email alert when an authenticated user successfully creates a review" do
+  scenario "book creator recieves an email alert when an authenticated user successfully creates a review", js: true do
     book
     book_creator = book.user
     sign_in(user)

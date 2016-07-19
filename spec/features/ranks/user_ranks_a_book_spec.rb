@@ -16,20 +16,20 @@ RSpec.feature "User ranks a book;", type: :feature do
     click_button "Save Rank"
   end
 
-  scenario "User views ranking capabilities on the book show page" do
+  scenario "User views ranking capabilities on the book show page", js: true do
     unauth_navigate_to_book_details_page
 
     expect(page).to have_content("Rank Book")
   end
 
-  scenario "user views possible rankings for a book (1, 2, 3, 4, 5)" do
+  scenario "user views possible rankings for a book (1, 2, 3, 4, 5)", js: true do
     unauth_navigate_to_book_details_page
     click_link "Rank Book"
 
     expect(page).to have_content("Rank #{book.title}")
   end
 
-  scenario "An authenticated user successfully ranks a book" do
+  scenario "An authenticated user successfully ranks a book", js: true do
     book
     sign_in(user)
     click_link book.title
@@ -39,7 +39,7 @@ RSpec.feature "User ranks a book;", type: :feature do
     expect(Rank.all.size).to eq(1)
   end
 
-  scenario "An unauthenticated user unsuccessfully attempts to rank a book" do
+  scenario "An unauthenticated user unsuccessfully attempts to rank a book", js: true do
     unauth_navigate_to_book_details_page
     navigate_and_choose_rank
 

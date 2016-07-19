@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.feature "Admin deletes a review", type: :feature do
+RSpec.feature "Admin deletes a review;", type: :feature do
 
-  scenario 'Admin successfully deletes a review created by a different user' do
+  scenario 'Admin successfully deletes a review created by a different user', js: true do
     admin = FactoryGirl.create(:admin)
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first

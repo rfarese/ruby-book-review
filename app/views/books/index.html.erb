@@ -3,5 +3,3 @@
 <h2><%= link_to "Add a New Book", new_book_path %></h2>
 
 <%= react_component "BooksContainer", booksPath: api_v1_books_path %>
-
-<%= paginate @books %>

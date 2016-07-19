@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "User views a books best review;", type: :feature do
 
-  scenario "User views the best review on the book show page" do
+  scenario "User views the best review on the book show page", js: true do
     review = FactoryGirl.create(:review)
     second_review = FactoryGirl.create(:review, book_id: review.book_id)
     vote = FactoryGirl.create(:vote, review_id: review.id)
@@ -20,7 +20,7 @@ RSpec.feature "User views a books best review;", type: :feature do
     end
   end
 
-  scenario "User doesn't view a 'Best Book Review' because no one has voted on any reviews" do
+  scenario "User doesn't view a 'Best Book Review' because no one has voted on any reviews", js: true do
     review = FactoryGirl.create(:review)
     second_review = FactoryGirl.create(:review, book_id: review.book_id)
     visit root_path
@@ -29,7 +29,7 @@ RSpec.feature "User views a books best review;", type: :feature do
     expect(page).to_not have_content("Best Book Review")
   end
 
-  scenario "Authenticated user creates a new 'Best Book Review' by adding a vote" do
+  scenario "Authenticated user creates a new 'Best Book Review' by adding a vote", js: true do
     review = FactoryGirl.create(:review)
     second_review = FactoryGirl.create(:review, book_id: review.book_id)
     user = FactoryGirl.create(:user)

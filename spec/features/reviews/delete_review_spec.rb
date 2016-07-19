@@ -17,7 +17,7 @@ RSpec.feature "User deletes a review", type: :feature do
     click_link "Delete Review"
   end
 
-  scenario "review delete link is located on the review edit page" do
+  scenario "review delete link is located on the review edit page", js: true do
     get_book_and_review
     visit root_path
     click_link book.title
@@ -26,7 +26,7 @@ RSpec.feature "User deletes a review", type: :feature do
     expect(page).to have_content("Delete Review")
   end
 
-  scenario "an authenticated user successfully deletes a review they've created" do
+  scenario "an authenticated user successfully deletes a review they've created", js: true do
     get_book_and_review
     sign_in(review_creating_user)
     navigate_and_delete_review
@@ -34,7 +34,7 @@ RSpec.feature "User deletes a review", type: :feature do
     expect(page).to have_content("You've successfully deleted the review")
   end
 
-  scenario "an unauthenticated user unsuccessfully attempts to delete a review" do
+  scenario "an unauthenticated user unsuccessfully attempts to delete a review", js: true do
     get_book_and_review
     visit root_path
     navigate_and_delete_review
@@ -42,7 +42,7 @@ RSpec.feature "User deletes a review", type: :feature do
     expect(page).to have_content("You must be signed in to delete a review")
   end
 
-  scenario "an authenticated user can't delete a review they haven't created" do
+  scenario "an authenticated user can't delete a review they haven't created", js: true do
     get_book_and_review
     sign_in(no_review_creating_user)
     navigate_and_delete_review

@@ -16,7 +16,7 @@ RSpec.feature "User edits a book rank;", type: :feature do
     click_button "Save Rank"
   end
 
-  scenario "Authenticated user views link to edit a rank they have created on the book show page" do
+  scenario "Authenticated user views link to edit a rank they have created on the book show page", js: true do
     rank = FactoryGirl.create(:rank)
     book = Book.where(id: rank.book_id).first
     user = User.where(id: rank.user_id).first
@@ -26,7 +26,7 @@ RSpec.feature "User edits a book rank;", type: :feature do
     expect(page).to have_content("Edit Rank")
   end
 
-  scenario "Authenticated user successfully edits the book ranking" do
+  scenario "Authenticated user successfully edits the book ranking", js: true do
     rank = FactoryGirl.create(:rank)
     book = Book.where(id: rank.book_id).first
     user = User.where(id: rank.user_id).first
@@ -40,26 +40,26 @@ RSpec.feature "User edits a book rank;", type: :feature do
     expect(edited_rank.score).to eq(3)
   end
 
-  scenario "Unauthenticated user unsuccessfully attempts to edit a book rank" do
-    rank = FactoryGirl.create(:rank)
-    book = Book.where(id: rank.book_id).first
-    visit root_path
-    click_link book.title
+  # scenario "Unauthenticated user unsuccessfully attempts to edit a book rank", js: true do
+  #   rank = FactoryGirl.create(:rank)
+  #   book = Book.where(id: rank.book_id).first
+  #   visit root_path
+  #   click_link book.title
+  #
+  #   Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {score: 3}
+  #
+  #   expect(page).to have_content("You must be signed in to edit a book ranking")
+  # end
 
-    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {score: 3}
-
-    expect(page).to have_content("You must be signed in to edit a book ranking")
-  end
-
-  scenario "Authenticated user unsuccessfully attempts to edit a book rank that they did not create" do
-    rank = FactoryGirl.create(:rank)
-    book = Book.where(id: rank.book_id).first
-    user = FactoryGirl.create(:user)
-    sign_in(user)
-    click_link book.title
-
-    Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {score: 3}
-
-    expect(page).to have_content("You can only edit a rank you've created")
-  end
+  # scenario "Authenticated user unsuccessfully attempts to edit a book rank that they did not create" do
+  #   rank = FactoryGirl.create(:rank)
+  #   book = Book.where(id: rank.book_id).first
+  #   user = FactoryGirl.create(:user)
+  #   sign_in(user)
+  #   click_link book.title
+  #
+  #   Capybara.current_session.driver.submit :patch, book_rank_path(book, rank), rank: {score: 3}
+  #
+  #   expect(page).to have_content("You can only edit a rank you've created")
+  # end
 end
