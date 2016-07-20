@@ -41,7 +41,7 @@
       <td><%= link_to "Edit", edit_book_review_path(@book, review) %></td>
       <td><%= review.title %></td>
       <td><%= review.description %></td>
-      <td><%= link_to "Vote", new_review_vote_path(review) %></td>
+      <td><%= link_to "Vote", new_review_vote_path(review), class: "vote-link", method: :get %></td> 
     <% end %>
     </tr>
   </tbody>

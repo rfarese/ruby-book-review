@@ -16,6 +16,7 @@ class VotesController < ApplicationController
 
   def new
     @review = Review.where(id: params[:review_id]).first
+    @vote = Vote.new(review_id: @review.id)
     @voting_status = has_user_voted(@review)
   end
 
@@ -37,7 +38,8 @@ class VotesController < ApplicationController
     else
       flash[:notice] = "Join the cool kids! Sign in to cast your vote!"
     end
-    redirect_to new_review_vote_path(@review)
+    @voting_status = has_user_voted(@review)
+    render "new"
   end
 
   def do_user_ids_match_update?(review, vote)

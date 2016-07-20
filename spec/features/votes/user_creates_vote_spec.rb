@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'net/http'
 
 RSpec.feature "User creates a vote;", type: :feature do
   let(:review) { FactoryGirl.create(:review) }
