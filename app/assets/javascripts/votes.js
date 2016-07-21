@@ -9,7 +9,7 @@ $(document).ready(function() {
     // });
     //
     // request.done(function(data) {
-    //
+    //   debugger;
     //   $("#voting_status").append(data.voting_status);
     //
     //   if (data.voting_status === "None") {

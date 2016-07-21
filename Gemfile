@@ -15,6 +15,7 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'fog-aws'
 gem 'react-rails'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'capybara'
