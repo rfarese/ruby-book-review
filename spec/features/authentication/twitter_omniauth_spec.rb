@@ -15,6 +15,7 @@ RSpec.feature "User authenticates with Twitter credentials;", type: :feature do
 
     expect(page).to_not have_content("Sign in with Twitter")
     expect(page).to have_content("Sign Out")
+    expect(twitter_user.id?).to eq(true)
   end
 
   scenario "Authenticated Twitter user signs out of the site" do

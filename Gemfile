@@ -16,6 +16,7 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'react-rails'
 gem 'omniauth-twitter'
+gem 'twitter'
 
 group :development, :test do
   gem 'capybara'

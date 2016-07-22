@@ -53,4 +53,24 @@ RSpec.describe Review, type: :model do
       expect(review.has_votes?).to eq(false)
     end
   end
+
+  describe "#build_tweet" do
+    it "Creates the text for the body of a tweet" do
+      review = FactoryGirl.create(:review)
+      book = Book.where(id: review.book_id).first
+
+      expect(review.build_tweet).to eq("Checkout my book review on #{book.title}!")
+    end
+  end
+
+  describe "#send_tweet", js: true do
+    it "sends a message to Twitter" do
+      book = FactoryGirl.create(:book)
+      twitter_user = create_twitter_user
+      review = FactoryGirl.create(:review, user_id: twitter_user.id)
+      tweet = review.send_tweet
+
+      expect(tweet.full_text).to eq(review.build_tweet)
+    end
+  end
 end
