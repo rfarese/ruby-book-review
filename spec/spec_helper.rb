@@ -1,3 +1,4 @@
+require 'omniauth'
 
 Dir[File.dirname(__FILE__) + '/support/*.rb'].each { |file| require file }
 
@@ -14,8 +15,14 @@ RSpec.configure do |config|
     ActionMailer::Base.deliveries.clear
   end
 
+  config.before :each do
+    OmniAuth.config.mock_auth[:twitter] = nil
+  end
+
   # tried added this to help with the API controller testing...
   # config.include Devise::TestHelpers, type: :controller
-
+  OmniAuth.config.test_mode = true
+  config.include AuthenticationHelper
+  config.include TwitterUserCreatorHelper
   config.include UserSignInHelper
 end
