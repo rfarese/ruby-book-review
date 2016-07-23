@@ -30,28 +30,29 @@ $(document).ready(function() {
 
   // create up vote
   $("#up-vote-post").on("click", function(event) {
-    // event.preventDefault();
-    //
-    // var href = $("#up-vote-post").attr("href");
-    //
-    // var request = $.ajax( {
-    //   method: "POST",
-    //   url: href
-    // });
-    //
-    // request.done(function(data) {
-    //   var data = JSON.parse(data);
-    //   $("#message").append(data.message);
-    //   $("#voting_status").append(data.voting_status);
-    //
-    //   if (data.voting_status === "None") {
-    //     $("#up-vote-post").hide();
-    //     $("#down-vote-post").hide();
-    //     $("#up-vote-patch").show();
-    //     $("#down-vote-patch").show();
-    //     $("#vote-delete").show();
-    //   }
-    // });
+    event.preventDefault();
+
+    var href = $("#up-vote-post").attr("href");
+
+    var request = $.ajax( {
+      method: "POST",
+      url: href
+    });
+
+    request.done(function(data) {
+      debugger; 
+      // var data = JSON.parse(data);
+      // $("#message").append(data.message);
+      // $("#voting_status").append(data.voting_status);
+      //
+      // if (data.voting_status === "None") {
+      //   $("#up-vote-post").hide();
+      //   $("#down-vote-post").hide();
+      //   $("#up-vote-patch").show();
+      //   $("#down-vote-patch").show();
+      //   $("#vote-delete").show();
+      // }
+    });
   });
 
   // create down vote
