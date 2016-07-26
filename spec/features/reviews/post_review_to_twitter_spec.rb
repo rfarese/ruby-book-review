@@ -13,7 +13,7 @@ RSpec.feature "User posts a review to Twitter", type: :feature do
     fill_in "Title", with: "I love POODR!"
     fill_in "Description", with: "Sandi gave us one hell of a 'gem'...when she wrote POODR!"
     click_button "Submit Review"
-    review = Review.where(user_id: twitter_user.id).first
+    review = Review.where(title: "I love POODR!").first
 
     expect(review.send_tweet.full_text).to eq(review.build_tweet)
   end
