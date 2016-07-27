@@ -25,6 +25,10 @@ class Review < ActiveRecord::Base
     votes != [] && votes != nil
   end
 
+  def has_user_voted?(user)
+    Vote.where(user_id: user.id, review_id: self.id)
+  end
+
   def build_tweet
     book = Book.where(id: self.book_id).first
     "Checkout my book review on #{book.title}!"

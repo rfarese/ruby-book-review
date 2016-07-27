@@ -13,6 +13,7 @@ $(document).ready(function() {
     });
 
     request.done(function(data) {
+      debugger; 
       $("#voting-message").append(data.message);
       $(upVoteLink).removeClass("up-vote-post-ajax").addClass('up-vote-patch-ajax');
       $(upVoteLink).attr("data-method", "patch");
@@ -45,12 +46,34 @@ $(document).ready(function() {
 
   // change vote to up vote
   $("#up-vote-patch-ajax").on("click", function(event) {
+    event.preventDefault();
 
+    var href = $(this).attr("href");
+
+    var request = $.ajax( {
+      method: "PATCH",
+      url: href
+    });
+
+    request.done(function(data) {
+      $("#voting-message").append(data.message);
+    });
   });
 
   // change vote to down vote
   $("#down-vote-patch-ajax").on("click", function(event) {
+    event.preventDefault();
 
+    var href = $(this).attr("href");
+
+    var request = $.ajax( {
+      method: "PATCH",
+      url: href
+    });
+
+    request.done(function(data) {
+      $("#voting-message").append(data.message);
+    });
   });
 
   // delete vote
