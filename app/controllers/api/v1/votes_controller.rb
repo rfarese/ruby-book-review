@@ -27,6 +27,7 @@ class Api::V1::VotesController < Api::V1::ApiController
   def do_user_ids_match?(review, book)
     if current_user.id != review.user_id
       vote = Vote.create(vote_params)
+      
       render json: { vote: vote, voting_status: has_user_voted(review), message: "What a Nice Looking Vote!" }
     else
       render json: { message: "Silly Rabbit!  You can't vote for your own review!" }

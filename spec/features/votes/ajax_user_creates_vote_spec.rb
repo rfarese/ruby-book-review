@@ -19,12 +19,15 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     sign_in(user)
     click_link book.title
     click_link "Up Vote"
+    wait_for_ajax
     vote = Vote.all.first
 
     expect(Vote.all.size).to eq(1)
     expect(vote.up_vote).to eq(true)
     expect(vote.down_vote).to eq(false)
-    # expect(page).to have_css("")
+    expect(page).to have_content("What a Nice Looking Vote!")
+    # expect(page).to have_css('a.up-vote-patch-ajax')
+    # expect(page).to have_css('a.down-vote-patch-ajax')
   end
 
   scenario "User successfully 'down votes' a review", js: true do
@@ -34,12 +37,15 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     sign_in(user)
     click_link book.title
     click_link "Down Vote"
+    wait_for_ajax
     vote = Vote.all.first
 
     expect(Vote.all.size).to eq(1)
     expect(vote.up_vote).to eq(false)
     expect(vote.down_vote).to eq(true)
-    # expect(page).to have_css("")
+    expect(page).to have_content("What a Nice Looking Vote!")
+    # expect(page).to have_css('a.up-vote-patch-ajax')
+    # expect(page).to have_css('a.down-vote-patch-ajax')
   end
 
   scenario "An unauthenticated user unsuccessfully attempts to vote", js: true do

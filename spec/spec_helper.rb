@@ -25,4 +25,5 @@ RSpec.configure do |config|
   config.include AuthenticationHelper
   config.include TwitterUserCreatorHelper
   config.include UserSignInHelper
+  config.include WaitForAjax, type: :feature 
 end
