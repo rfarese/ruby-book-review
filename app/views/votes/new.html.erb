@@ -1,11 +1,11 @@
 <h1>Vote for <%= @review.title %></h1>
 
-<p id="voting-status">Voting Status: <%= @voting_status %></p>
+<p>Voting Status: <%= @voting_status %></p>
 
 <% if @voting_status == "None" %>
 <h2>Create a New Vote</h2>
   <ul>
-    <li><%= link_to "Up Vote", api_v1_votes_path(@review, up_vote: true, down_vote: false), method: :post, id: "up-vote-post" %></li>
+    <li><%= link_to "Up Vote", review_votes_path(@review, up_vote: true, down_vote: false), method: :post, id: "up-vote-post" %></li>
     <li><%= link_to "Down Vote", review_votes_path(@review, up_vote: false, down_vote: true), method: :post, id: "down-vote-post" %></li>
   </ul>
 <% else %>

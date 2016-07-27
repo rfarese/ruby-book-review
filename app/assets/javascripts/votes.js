@@ -29,22 +29,33 @@ $(document).ready(function() {
   });
 
   // create up vote
-  $("#up-vote-post").on("click", function(event) {
+  $("#up-vote-post-ajax").on("click", function(event) {
     event.preventDefault();
 
-    var href = $("#up-vote-post").attr("href");
+    var href = $("#up-vote-post-ajax").attr("href");
+
+    // get review id
+    var reviewIdElement = $(this).closest('tr').attr('id');
+    var reviewId = parseInt(reviewIdElement.replace("review_", ""));
+
+    // get up vote boolean
+    var upVote = true;
+
+    // get down vote boolean
+    var downVote = false;
 
     var request = $.ajax( {
       method: "POST",
-      url: href
+      url: "/api/v1/votes",
+      data: { up_vote: upVote, down_vote: downVote, review_id: reviewId }
     });
 
     request.done(function(data) {
-      debugger; 
-      // var data = JSON.parse(data);
-      // $("#message").append(data.message);
-      // $("#voting_status").append(data.voting_status);
-      //
+      // debugger;
+      // $("#voting-message").append(data.message);
+
+      // $("#voting-status").append(data.voting_status);
+
       // if (data.voting_status === "None") {
       //   $("#up-vote-post").hide();
       //   $("#down-vote-post").hide();
@@ -56,8 +67,19 @@ $(document).ready(function() {
   });
 
   // create down vote
-  $("#down-vote-post").on("click", function(event) {
+  $("#down-vote-post-ajax").on("click", function(event) {
+    event.preventDefault();
 
+    var href = $("#down-vote-post-ajax").attr("href");
+
+    var request = $.ajax( {
+      method: "POST",
+      url: href
+    });
+
+    request.done(function(data) {
+      $("#voting-message").append(data.message);
+    });
   });
 
   // change vote to up vote
