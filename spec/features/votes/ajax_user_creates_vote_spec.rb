@@ -26,8 +26,8 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     expect(vote.up_vote).to eq(true)
     expect(vote.down_vote).to eq(false)
     expect(page).to have_content("What a Nice Looking Vote!")
-    # expect(page).to have_css('a.up-vote-patch-ajax')
-    # expect(page).to have_css('a.down-vote-patch-ajax')
+    expect(page).to have_css('a.up-vote-patch-ajax')
+    expect(page).to have_css('a.down-vote-patch-ajax')
   end
 
   scenario "User successfully 'down votes' a review", js: true do
@@ -44,8 +44,8 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     expect(vote.up_vote).to eq(false)
     expect(vote.down_vote).to eq(true)
     expect(page).to have_content("What a Nice Looking Vote!")
-    # expect(page).to have_css('a.up-vote-patch-ajax')
-    # expect(page).to have_css('a.down-vote-patch-ajax')
+    expect(page).to have_css('a.up-vote-patch-ajax')
+    expect(page).to have_css('a.down-vote-patch-ajax')
   end
 
   scenario "An unauthenticated user unsuccessfully attempts to vote", js: true do
@@ -56,7 +56,7 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     click_link "Up Vote"
 
     expect(Vote.all.size).to eq(0)
-    # expect(page).to have_content("")
+    expect(page).to have_content("Join the cool kids! Sign in to cast your vote!")
   end
 
   scenario "An authenticated unsuccessfully attempts to vote for a review they've created", js: true do
@@ -68,10 +68,58 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     click_link "Up Vote"
 
     expect(Vote.all.size).to eq(0)
-    # expect(page).to have_content("")
+    expect(page).to have_content("Silly Rabbit!  You can't vote for your own review!")
   end
 
-  scenario "User creates a vote for two different reviews for the same book"
+  scenario "User creates a vote for two different reviews for the same book", js: true do
+    review = FactoryGirl.create(:review)
+    second_review = FactoryGirl.create(:review, book_id: review.book_id)
+    user = FactoryGirl.create(:user)
+    sign_in(user)
 
-  scenario "User creates a vote for a review for two different books"
+    click_link review.book.title
+    within("#review_#{review.id}") do
+      click_link "Up Vote"
+    end
+
+    visit root_path
+    click_link review.book.title
+    within("#review_#{second_review.id}") do
+      click_link "Down Vote"
+    end
+    wait_for_ajax
+
+    first_vote = Vote.where(user_id: user.id, review_id: review.id).first
+    second_vote = Vote.where(user_id: user.id, review_id: second_review.id).first
+
+    expect(Vote.all.size).to eq(2)
+    expect(first_vote).to_not eq(second_vote)
+    expect(first_vote.up_vote).to eq(true)
+    expect(first_vote.down_vote).to eq(false)
+    expect(second_vote.down_vote).to eq(true)
+    expect(second_vote.up_vote).to eq(false)
+  end
+
+  scenario "User creates a vote for a review for two different books", js: true do
+    review = FactoryGirl.create(:review)
+    second_review = FactoryGirl.create(:review)
+    user = FactoryGirl.create(:user)
+    sign_in(user)
+    click_link review.book.title
+    click_link "Up Vote"
+    visit root_path
+    click_link second_review.book.title
+    click_link "Down Vote"
+    wait_for_ajax
+
+    first_vote = Vote.where(user_id: user.id, review_id: review.id).first
+    second_vote = Vote.where(user_id: user.id, review_id: second_review.id).first
+
+    expect(Vote.all.size).to eq(2)
+    expect(first_vote).to_not eq(second_vote)
+    expect(first_vote.up_vote).to eq(true)
+    expect(first_vote.down_vote).to eq(false)
+    expect(second_vote.up_vote).to eq(false)
+    expect(second_vote.down_vote).to eq(true)
+  end
 end
