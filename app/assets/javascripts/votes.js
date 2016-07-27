@@ -29,8 +29,7 @@ $(document).ready(function() {
   });
 
   // create up vote
-  // YOU HAVE ALL THE SAME ID'S FOR THE UP VOTE AND DOWN VOTE BUTTONS!!!!  
-  $("#up-vote-post-ajax").on("click", function(event) {
+  $(".up-vote-post-ajax").on("click", function(event) {
     event.preventDefault();
 
     var href = $(this).attr("href");
@@ -53,7 +52,7 @@ $(document).ready(function() {
     });
 
     request.done(function(data) {
-      debugger;
+      debugger; 
       $("#voting-message").append(data.message);
 
       // $("#voting-status").append(data.voting_status);
@@ -69,10 +68,10 @@ $(document).ready(function() {
   });
 
   // create down vote
-  $("#down-vote-post-ajax").on("click", function(event) {
+  $(".down-vote-post-ajax").on("click", function(event) {
     event.preventDefault();
 
-    var href = $("#down-vote-post-ajax").attr("href");
+    var href = $(this).attr("href");
 
     var request = $.ajax( {
       method: "POST",

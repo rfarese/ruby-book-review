@@ -1,16 +1,7 @@
-# NOTE
-# - I need to restructure the flow of this app...
-# - Add the voting section to the bottom of the book show page
-# - look at the project "submitting forms asynchronously with ajax in rails"
-# - use the same kind of format for reviews and votes that was used for video and comments
-# - for video and comments, the video show page controller just passes "comment = video.comments.build"
-# - then on the show page, the comments form is displayed with render "comments/form"
-
 class Api::V1::VotesController < Api::V1::ApiController
 
   def index
     votes = Vote.all
-
     render json: votes
   end
 
@@ -36,8 +27,7 @@ class Api::V1::VotesController < Api::V1::ApiController
   def do_user_ids_match?(review, book)
     if current_user.id != review.user_id
       vote = Vote.create(vote_params)
-      # render json: :nothing, status: :created, location: api_v1_votes_path(vote)
-      render json: { vote: vote, voting_status: has_user_voted(review), message: "What a Nice Looking Vote!" }, location: book_path(book)
+      render json: { vote: vote, voting_status: has_user_voted(review), message: "What a Nice Looking Vote!" }
     else
       render json: { message: "Silly Rabbit!  You can't vote for your own review!" }
     end
@@ -52,8 +42,6 @@ class Api::V1::VotesController < Api::V1::ApiController
     else
       render json: { message: "Join the cool kids! Sign in to cast your vote!" }
     end
-    # voting_status = has_user_voted(review)
-    # render json: { voting_status: voting_status, vote: vote }
   end
 
   def do_user_ids_match_update?(review, vote)
