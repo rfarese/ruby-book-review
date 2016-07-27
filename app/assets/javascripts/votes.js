@@ -29,30 +29,32 @@ $(document).ready(function() {
   });
 
   // create up vote
+  // YOU HAVE ALL THE SAME ID'S FOR THE UP VOTE AND DOWN VOTE BUTTONS!!!!  
   $("#up-vote-post-ajax").on("click", function(event) {
     event.preventDefault();
 
-    var href = $("#up-vote-post-ajax").attr("href");
+    var href = $(this).attr("href");
 
     // get review id
-    var reviewIdElement = $(this).closest('tr').attr('id');
-    var reviewId = parseInt(reviewIdElement.replace("review_", ""));
+    // var reviewIdElement = $(this).closest('tr').attr('id');
+    // var reviewId = parseInt(reviewIdElement.replace("review_", ""));
 
     // get up vote boolean
-    var upVote = true;
+    // var upVote = true;
 
     // get down vote boolean
-    var downVote = false;
+    // var downVote = false;
 
     var request = $.ajax( {
       method: "POST",
-      url: "/api/v1/votes",
-      data: { up_vote: upVote, down_vote: downVote, review_id: reviewId }
+      url: href
+      // url: "/api/v1/votes",
+      // data: { up_vote: upVote, down_vote: downVote, review_id: reviewId }
     });
 
     request.done(function(data) {
-      // debugger;
-      // $("#voting-message").append(data.message);
+      debugger;
+      $("#voting-message").append(data.message);
 
       // $("#voting-status").append(data.voting_status);
 

@@ -36,12 +36,10 @@ class Api::V1::VotesController < Api::V1::ApiController
   def do_user_ids_match?(review, book)
     if current_user.id != review.user_id
       vote = Vote.create(vote_params)
-      render json: :nothing, status: :created, location: api_v1_votes_path(vote) 
-      # render json: { vote: vote, voting_status: has_user_voted(review), message: "What a Nice Looking Vote!" }, location: book_path(book)
-      # flash[:notice] = "What a Nice Looking Vote!"
+      # render json: :nothing, status: :created, location: api_v1_votes_path(vote)
+      render json: { vote: vote, voting_status: has_user_voted(review), message: "What a Nice Looking Vote!" }, location: book_path(book)
     else
       render json: { message: "Silly Rabbit!  You can't vote for your own review!" }
-      # flash[:notice] = "Silly Rabbit! You can't vote for your own review!"
     end
   end
 
@@ -53,7 +51,6 @@ class Api::V1::VotesController < Api::V1::ApiController
       do_user_ids_match?(review, book)
     else
       render json: { message: "Join the cool kids! Sign in to cast your vote!" }
-      # message = "Join the cool kids! Sign in to cast your vote!"
     end
     # voting_status = has_user_voted(review)
     # render json: { voting_status: voting_status, vote: vote }
