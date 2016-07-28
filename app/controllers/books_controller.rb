@@ -21,20 +21,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # if current_user has voted, display that vote
-  # else create a new empty vote for each review
-
-  # def create_votes(book)
-  #   if user_signed_in?
-  #     # iterate over the reviews for this book
-  #     # iterate over the votes for each review
-  #     # determine if the current user has created one of the votes
-  #
-  #   else
-  #
-  #   end
-  # end
-
   def show
     if user_signed_in?
       has_user_ranked_book?

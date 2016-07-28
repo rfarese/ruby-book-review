@@ -13,7 +13,6 @@ $(document).ready(function() {
     });
 
     request.done(function(data) {
-      debugger; 
       $("#voting-message").append(data.message);
       $(upVoteLink).removeClass("up-vote-post-ajax").addClass('up-vote-patch-ajax');
       $(upVoteLink).attr("data-method", "patch");

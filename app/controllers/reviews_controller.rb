@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
 
     if user_signed_in?
       @review = @book.reviews.create(review_params)
-    #  ReviewMailer.new_review(@review).deliver_later if @review.valid?
+      ReviewMailer.new_review(@review).deliver_later if @review.valid?
       @review.send_tweet if @review.valid?
       flash[:notice] = "You've successfully added your new review!"
     else
