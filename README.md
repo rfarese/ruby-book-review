@@ -14,13 +14,14 @@
 * Twitter API
 * AWS
 * Heroku
-* Testing Tools
-··* Rspec
-··* Capybara
-··* FactoryGirl
-··* Jasmine
-··* Poltergeist
-··* Database Cleaner
+
+### Testing Tools
+* Rspec
+* Capybara
+* FactoryGirl
+* Jasmine
+* Poltergeist
+* Database Cleaner
 
 ## Description
 Ruby Book Review is a basic book review site where a user can research books
@@ -41,12 +42,7 @@ The primary workflow was as follows:
 * Push all changes to production server running on Heroku
 
 ## Features
-* CRUD operations for primary models:
-··* Users
-··* Books
-··* Reviews
-··* Ranks
-··* Votes
+* CRUD operations for primary models (Users, Books, Reviews, Ranks, and Votes)
 * User Authentication with Devise
 * Devise Admin Role - ability to delete other user accounts, books, reviews, etc.
 * Average Book Rank
