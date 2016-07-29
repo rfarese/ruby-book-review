@@ -13,7 +13,7 @@ RSpec.feature "User creates a new book;", type: :feature do
 
   scenario "user navigates to the new book page" do
     visit root_path
-    click_link "Add a New Book"
+    click_link "Add Book"
 
     expect(page).to have_content("Add a New Book")
     expect(page).to have_content("Title")
@@ -24,7 +24,7 @@ RSpec.feature "User creates a new book;", type: :feature do
 
   scenario "an unauthenticated user can not create a new book" do
     visit root_path
-    click_link "Add a New Book"
+    click_link "Add Book"
 
     add_a_new_book
 
@@ -33,7 +33,7 @@ RSpec.feature "User creates a new book;", type: :feature do
 
   scenario "authenticated user successfully creates a new book" do
     sign_in(user)
-    click_link "Add a New Book"
+    click_link "Add Book"
     add_a_new_book
 
     expect(page).to have_content("You've successfully created a new book!")
@@ -41,7 +41,7 @@ RSpec.feature "User creates a new book;", type: :feature do
 
   scenario "authenticated user doesnt provide valid and required information to create a new book" do
     sign_in(user)
-    click_link "Add a New Book"
+    click_link "Add Book"
     click_button "Submit Book"
 
     expect(page).to have_content("3 errors prohibited this book from being saved:")
