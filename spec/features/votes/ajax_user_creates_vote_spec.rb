@@ -56,7 +56,6 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     click_link "Up Vote"
 
     expect(Vote.all.size).to eq(0)
-    expect(page).to have_content("Join the cool kids! Sign in to cast your vote!")
   end
 
   scenario "An authenticated unsuccessfully attempts to vote for a review they've created", js: true do

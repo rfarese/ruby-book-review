@@ -78,12 +78,11 @@ class Api::V1::VotesController < Api::V1::ApiController
   def destroy
     review = Review.find(params[:review_id])
     if user_signed_in?
-      vote = Vote.where(id: params[:id]).first
+      vote = Vote.where(user_id: current_user.id, review_id: review.id).first
       do_user_ids_match_destroy(review, vote)
     else
       render json: { message: "You must be signed in to delete a vote" }
     end
-    redirect_to new_review_vote_path(review)
   end
 
   private
