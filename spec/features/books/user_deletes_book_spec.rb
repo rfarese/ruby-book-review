@@ -4,9 +4,6 @@ RSpec.feature "User deletes a book;", type: :feature do
   let(:user) { FactoryGirl.create(:user) }
   let(:book) { FactoryGirl.create(:book) }
 
-#   Acceptance Criteria:
-#     * If the current users id matches the book user id and clicks the delete book link, the book and all of its corresponding data (reviews, votes, and rankings) are deleted
-
   scenario "unauthenticated user can't access book edit page to view the delete functionality", js: true do
     book
     visit root_path
@@ -14,17 +11,6 @@ RSpec.feature "User deletes a book;", type: :feature do
 
     expect(page).to_not have_content("Edit Book")
   end
-
-  # scenario "unauthenticated unsuccessfully attempts to delete a book", js: true do
-  #   book
-  #   visit root_path
-  #   click_link book.title
-  #   Capybara.current_session.driver.delete book_path(book)
-  #   visit books_path
-  #
-  #   expect(page).to have_content("You must be signed in to delete a book")
-  #   expect(Book.all.size).to eq(1)
-  # end
 
   scenario "authenticated user views delete link on the edit book page", js: true do
     book

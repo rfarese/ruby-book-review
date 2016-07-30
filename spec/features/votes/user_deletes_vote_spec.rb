@@ -70,38 +70,4 @@ RSpec.feature "User deletes a vote;", type: :feature do
 
     expect(Vote.all.size).to eq(1)
   end
-
-  # scenario "An unauthenticated user unsuccessfully attempts to delete a vote", js: true do
-  #   vote = FactoryGirl.create(:vote)
-  #   visit root_path
-  #   click_link vote.review.book.title
-  #   click_link "Vote"
-  #   attributes = {
-  #     review_id: vote.review_id,
-  #     user_id: vote.user_id,
-  #     id: vote.id
-  #   }
-  #   Capybara.current_session.driver.submit :delete, review_vote_path(vote.review, vote), attributes
-  #   visit book_path(vote.review.book)
-  #
-  #   expect(Vote.all.size).to eq(1)
-  # end
-
-  # scenario "An authenticated user unsuccessfully attempts to delete someone elses vote", js: true do
-  #   vote = FactoryGirl.create(:vote)
-  #   user = FactoryGirl.create(:user)
-  #   sign_in(user)
-  #   click_link vote.review.book.title
-  #   click_link "Vote"
-  #   attributes = {
-  #     review_id: vote.review_id,
-  #     user_id: vote.user_id,
-  #     id: vote.id
-  #   }
-
-  #   Capybara.current_session.driver.submit :delete, review_vote_path(vote.review, vote), attributes
-  #   visit book_path(vote.review.book)
-  #
-  #   expect(Vote.all.size).to eq(1)
-  # end
 end

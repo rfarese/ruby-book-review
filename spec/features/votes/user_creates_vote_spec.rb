@@ -83,29 +83,6 @@ RSpec.feature "User creates a vote;", type: :feature do
     expect(Vote.all.size).to eq(0)
   end
 
-  # scenario "A user unsuccessfully attempts to create two votes for the same review", js: true do
-  #   vote = FactoryGirl.create(:vote)
-  #   user = vote.user
-  #   sign_in(user)
-  #   click_link vote.review.book.title
-  #   click_link "Vote"
-  #   attributes = {
-  #     review_id: vote.review_id,
-  #     user_id: user.id,
-  #     up_vote: false,
-  #     down_vote: true
-  #   }
-  #   # delete_request = Net::HTTP::Delete.new(review_votes_path(vote.review))
-  #   # response = http.request(delete_request)
-  #   # Net::HTTP.new("http://localhost:3000/").delete(review_votes_path(vote.review))
-  #   # Capybara.current_session.driver.submit :post, review_votes_path(vote.review), attributes
-  #   visit book_path(vote.review.book)
-  #
-  #   expect(Vote.all.size).to eq(1)
-  #   expect(vote.up_vote).to be(true)
-  #   expect(vote.down_vote).to be(false)
-  # end
-
   scenario "User creates a vote for two different reviews for the same book", js: true do
     review = FactoryGirl.create(:review)
     second_review = FactoryGirl.create(:review, book_id: review.book_id)

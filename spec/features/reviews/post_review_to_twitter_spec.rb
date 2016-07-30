@@ -2,9 +2,6 @@ require 'rails_helper'
 
 RSpec.feature "User posts a review to Twitter", type: :feature do
 
-# Acceptance Criteria:
-# * User successfully adds a book review to their Twitter account
-
   scenario "User successfully adds a book review to their Twitter account", js: true do
     book = FactoryGirl.create(:book)
     twitter_user = create_twitter_user

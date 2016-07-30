@@ -1,0 +1,39 @@
+<nav>
+  <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
+    <button class="menu-icon" type="button" data-toggle></button>
+    <div class="title-bar-title">Menu</div>
+  </div>
+
+  <div class="top-bar" id="main-menu">
+    <div class="top-bar-left">
+      <ul class="menu">
+        <li><%= link_to "Books", books_path %></li>
+        <li><%= link_to "Add Book", new_book_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+          <% if admin? %>
+            <li><%= link_to "User Profiles", users_path %></li>
+          <% end %>
+        <% else %>
+          <li><%= link_to "Sign In", new_user_session_path %></li>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        <li>
+          <%= form_tag(search_path, method: :get, id: "search-form") do %>
+              <div class="float-left">
+              <%= text_field_tag :search, params[:search], placeholder: "Search Books by Title" %>
+              </div>
+              <div class="float-right">
+              <%= submit_tag "Go", name: nil, class: "button" %>
+              </div>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

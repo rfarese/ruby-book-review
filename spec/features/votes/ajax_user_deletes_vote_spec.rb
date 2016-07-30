@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature "User deletes a vote with an AJAX call;", type: :feature do
-
-#   Acceptance Criteria:
-# * User views the ability to delete a vote on the book show page
-# * User successfully deletes a vote
-# * An unauthenticated user unsuccessfully attempts to delete a vote
-
   scenario "User views the ability to delete a vote on the books show page", js: true do
     vote = FactoryGirl.create(:vote)
     user = User.where(id: vote.user_id).first

@@ -19,11 +19,9 @@ RSpec.configure do |config|
     OmniAuth.config.mock_auth[:twitter] = nil
   end
 
-  # tried added this to help with the API controller testing...
-  # config.include Devise::TestHelpers, type: :controller
   OmniAuth.config.test_mode = true
   config.include AuthenticationHelper
   config.include TwitterUserCreatorHelper
   config.include UserSignInHelper
-  config.include WaitForAjax, type: :feature 
+  config.include WaitForAjax, type: :feature
 end
