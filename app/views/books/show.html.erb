@@ -25,53 +25,6 @@
   </div>
 <% end %>
 
-<h2>Book Reviews</h2>
-<p id="voting-message"></p>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Description</th>
-    </tr>
-  <thead>
+<%= render "reviews/show_reviews" %>
 
-  <tbody>
-    <% @reviews.each do |review| %>
-    <tr id="<%= dom_id(review) %>">
-      <td><%= link_to "Edit", edit_book_review_path(@book, review) %></td>
-      <td><%= review.title %></td>
-      <td><%= review.description %></td>
-      <td><%= link_to "Vote", new_review_vote_path(review), class: "vote-link", method: :get %></td>
-
-      <% if !user_signed_in? %>
-        <td><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax", remote: true %></td>
-        <td><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax", remote: true %></td>
-      <% elsif Vote.exists?(user_id: current_user.id, review_id: review.id) %>
-        <td><%= link_to "Up Vote", api_v1_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch, class: "up-vote-patch-ajax", remote: true %></td>
-        <td><%= link_to "Down Vote", api_v1_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch, class: "down-vote-patch-ajax", remote: true %></td>
-        <td><%= link_to "Delete Vote", api_v1_vote_path(review_id: review.id), method: :delete, class: "delete-vote-ajax", remote: true %></td>
-      <% else %>
-        <td><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax", remote: true %></td>
-        <td><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax", remote: true %></td>
-      <% end %>
-
-    <% end %>
-    </tr>
-  </tbody>
-</table>
-
-<%= paginate @reviews %>
-
-
-<h2>Add a Review:</h2>
-<%= simple_form_for([@book, @book.reviews.build]) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :title, required: true, autofocus: true %>
-    <%= f.input :description, as: :text, required: true, autofocus: true %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Submit Review" %>
-  </div>
-<% end %>
+<%= render 'reviews/form' %>
