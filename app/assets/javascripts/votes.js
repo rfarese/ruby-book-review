@@ -1,7 +1,6 @@
 $(document).ready(function() {
   $("body").on("click", ".up-vote-post-ajax", function(event) {
     event.preventDefault();
-    debugger; 
 
     var upVoteLink = this;
     var href = $(this).attr("href");

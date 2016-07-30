@@ -98,7 +98,7 @@ RSpec.feature "User deletes a vote;", type: :feature do
   #     user_id: vote.user_id,
   #     id: vote.id
   #   }
-  #   binding.pry
+
   #   Capybara.current_session.driver.submit :delete, review_vote_path(vote.review, vote), attributes
   #   visit book_path(vote.review.book)
   #
