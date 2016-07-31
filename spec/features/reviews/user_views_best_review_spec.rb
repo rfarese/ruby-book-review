@@ -37,10 +37,9 @@ RSpec.feature "User views a books best review;", type: :feature do
     click_link review.book.title
 
     within("#review_#{review.id}") do
-      click_link "Vote"
+      click_link "Up Vote"
     end
 
-    click_link "Up Vote"
     visit book_path(review.book)
 
     expect(page).to have_content("Best Book Review")

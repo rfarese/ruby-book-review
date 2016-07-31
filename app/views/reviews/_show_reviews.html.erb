@@ -6,6 +6,8 @@
       <th></th>
       <th>Title</th>
       <th>Description</th>
+      <th></th>
+      <th></th>
     </tr>
   <thead>
 
@@ -15,7 +17,7 @@
       <td><%= link_to "Edit", edit_book_review_path(@book, review) %></td>
       <td><%= review.title %></td>
       <td><%= review.description %></td>
-      <td><%= link_to "Vote", new_review_vote_path(review), class: "vote-link", method: :get %></td>
+      <!-- <td><%= link_to "Vote", new_review_vote_path(review), class: "vote-link", method: :get %></td> -->
 
       <% if !user_signed_in? %>
         <td><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax", remote: true %></td>
