@@ -10,8 +10,12 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    user = User.where(id: current_user.id).first
-    user.role == "admin"
+    if user_signed_in?
+      user = User.where(id: current_user.id).first
+      return user.role == "admin"
+    else 
+      return false
+    end
   end
   helper_method :admin?
 end
