@@ -15,9 +15,9 @@ class BooksController < ApplicationController
 
   def set_cover_photo(book)
     if Rails.env.test?
-      @cover_photo = book.cover_photo.path
+      @cover_photo = book.cover_photo.book_show.path
     else
-      @cover_photo = book.cover_photo.url
+      @cover_photo = book.cover_photo.book_show.url
     end
   end
 

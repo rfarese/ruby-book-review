@@ -14,7 +14,7 @@ RSpec.feature "User uploads a book cover photo;", type: :feature do
     book = Book.all.first
 
     expect(page).to have_content("Practical Object Oriented Design in Ruby")
-    expect(page).to have_css("img[src*='#{book.cover_photo.path}']")
+    expect(page).to have_css("img[src*='#{book.cover_photo.book_show.path}']")
   end
 
   scenario "User doesn't view a photo if one isn't uploaded" do
