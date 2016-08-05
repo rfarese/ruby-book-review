@@ -1,7 +1,7 @@
 var BooksContainer = React.createClass({
   componentWillMount(){
     this.fetchBooks();
-    setInterval(this.fetchBooks, 5000);
+    setInterval(this.fetchBooks, 1000);
   },
 
   fetchBooks() {
