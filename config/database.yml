@@ -83,4 +83,3 @@ production:
   database: ruby_book_reviews_production
   username: ruby_book_reviews
   password: <%= ENV['RUBY_BOOK_REVIEWS_DATABASE_PASSWORD'] %>
-  prepared_statements: false 
