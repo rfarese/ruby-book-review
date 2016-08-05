@@ -1,3 +1,4 @@
+{/*
 var BooksContainer = React.createClass({
   componentWillMount(){
     this.fetchBooks();
@@ -16,3 +17,4 @@ var BooksContainer = React.createClass({
     return <Books books={this.state.books} />;
   }
 });
+*/}

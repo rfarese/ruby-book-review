@@ -1,3 +1,7 @@
 <h1 class="text-center">Ruby Books</h1>
 
-<%= react_component "BooksContainer", booksPath: api_v1_books_path %>
+<ul>
+  <% @books.each do |book| %>
+    <li><%= book.title %></li>
+  <% end %>
+</ul>

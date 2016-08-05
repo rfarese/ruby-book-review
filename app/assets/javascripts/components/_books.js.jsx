@@ -1,3 +1,4 @@
+{/*
 var Books = React.createClass({
   render() {
 
@@ -10,3 +11,4 @@ var Books = React.createClass({
     return <ul className="row small-up-1 medium-up-2 large-up-4">{this.props.books.map(createBook)}</ul>;
   }
 })
+*/}
