@@ -1,5 +1,5 @@
 class DropAdminTable < ActiveRecord::Migration
-  def change 
+  def change
     drop_table :admins
   end
 end
