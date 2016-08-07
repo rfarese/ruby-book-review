@@ -1,6 +1,20 @@
 class BooksController < ApplicationController
+  def cover_photos(books)
+    @cover_photos = []
+
+    books.each do |book|
+      if Rails.env.test?
+        @cover_photos << book.cover_photo.book_show.path
+      else
+        @cover_photos << book.cover_photo.book_show.url
+      end
+    end
+    @cover_photos
+  end
+
   def index
     @books = Book.all.page(params[:page])
+    cover_photos(@books)
   end
 
   def search

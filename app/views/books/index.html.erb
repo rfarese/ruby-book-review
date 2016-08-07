@@ -1,3 +1,7 @@
 <h1 class="text-center">Ruby Books</h1>
 
-<%= react_component "BooksContainer", booksPath: api_v1_books_path %>
+<% @books.each do |book| %>
+  <a href="/books/<%= book.id %>">
+    <%= image_tag book.cover_photo.book_index.url, class: 'book' %>
+  </a>
+<% end %>
