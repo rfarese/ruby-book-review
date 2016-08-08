@@ -25,7 +25,7 @@ class VotesController < ApplicationController
       @vote = Vote.create(vote_params)
       flash[:notice] = "What a Nice Looking Vote!"
     else
-      flash[:notice] = "Silly Rabbit! You can't vote for your own review!"
+      flash[:notice] = "You can't vote for your own review"
     end
   end
 
@@ -47,7 +47,7 @@ class VotesController < ApplicationController
       vote.update(vote_params)
       flash[:notice] = "You've successfully updated your vote"
     else
-      flash[:notice] = "Silly Rabbit! You can't vote for your own review!"
+      flash[:notice] = "You can't vote for your own review"
     end
   end
 
@@ -68,7 +68,7 @@ class VotesController < ApplicationController
   def do_user_ids_match_destroy(review, vote)
     if current_user.id == vote.user_id
       vote.destroy
-      flash[:notice] = "Hasta la vista...vote!"
+      flash[:notice] = "Vote deleted"
     else
       flash[:notice] = "You can not delete someone elses vote"
     end

@@ -23,7 +23,10 @@ $(document).ready(function() {
       $(upVoteLink).attr("data-method", "patch");
       $(downVoteLink).removeClass("down-vote-post-ajax").addClass("down-vote-patch-ajax");
       $(downVoteLink).attr("data-method", "patch");
-      $(reviewElement).append("<td><a class='delete-vote-ajax' data-remote='true' rel='nofollow' data-method='delete' href=" + deleteHref + ">Delete Vote</a></td>");
+      if ( data.vote === true ) {
+        $(reviewElement).append("<td><a class='delete-vote-ajax' data-remote='true' rel='nofollow' data-method='delete' href=" + deleteHref + ">Delete Vote</a></td>");
+        $("table thead tr").append("<th></th>"); 
+      }
     });
   });
 
