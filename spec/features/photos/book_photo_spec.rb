@@ -5,7 +5,7 @@ RSpec.feature "User uploads a book cover photo;", type: :feature do
   scenario "User successfully uploads a book cover photo" do
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link "Add Book"
+    first(:link, "Add Book").click
     fill_in "Title", with: "Practical Object Oriented Design in Ruby"
     fill_in "Author", with: "Sandy Metz"
     fill_in "Description", with: "This is a book about creating flexible software to ensure maintainability"
@@ -20,7 +20,7 @@ RSpec.feature "User uploads a book cover photo;", type: :feature do
   scenario "User doesn't view a photo if one isn't uploaded" do
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link "Add Book"
+    first(:link, "Add Book").click
     fill_in "Title", with: "Practical Object Oriented Design in Ruby"
     fill_in "Author", with: "Sandy Metz"
     fill_in "Description", with: "This is a book about creating flexible software to ensure maintainability"

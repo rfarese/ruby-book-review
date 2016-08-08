@@ -12,7 +12,7 @@ RSpec.feature "User views a list of all books;", type: :feature do
     books = add_books(2)
     visit root_path
 
-    expect(page).to have_content(books.first.title)
-    expect(page).to have_content(books.last.title)
+    expect(page).to have_css("a[href='/books/#{books.first.id}']")
+    expect(page).to have_css("a[href='/books/#{books.last.id}']")
   end
 end

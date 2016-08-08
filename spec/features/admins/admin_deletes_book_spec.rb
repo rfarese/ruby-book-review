@@ -6,7 +6,7 @@ RSpec.feature "Admin deletes a book;", type: :feature do
     admin = FactoryGirl.create(:admin)
     book = FactoryGirl.create(:book)
     sign_in(admin)
-    click_link book.title
+    find('img.book').click
     click_link "Edit Book"
     click_link "Delete Book"
 

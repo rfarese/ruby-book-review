@@ -7,7 +7,7 @@ RSpec.feature "User deletes a book;", type: :feature do
   scenario "unauthenticated user can't access book edit page to view the delete functionality", js: true do
     book
     visit root_path
-    click_link book.title
+    find('img.book').click
 
     expect(page).to_not have_content("Edit Book")
   end
@@ -15,7 +15,7 @@ RSpec.feature "User deletes a book;", type: :feature do
   scenario "authenticated user views delete link on the edit book page", js: true do
     book
     sign_in(user)
-    click_link book.title
+    find('img.book').click
     click_link "Edit Book"
 
     expect(page).to have_content("Delete Book")
@@ -24,7 +24,7 @@ RSpec.feature "User deletes a book;", type: :feature do
   scenario "authenticated user's id doesn't match the book user id and fails to delete a book", js: true do
     book
     sign_in(user)
-    click_link book.title
+    find('img.book').click
     click_link "Edit Book"
     click_link "Delete Book"
 
@@ -35,7 +35,7 @@ RSpec.feature "User deletes a book;", type: :feature do
     book
     current_user = book.user
     sign_in(current_user)
-    click_link book.title
+    find('img.book').click
     click_link "Edit Book"
     click_link "Delete Book"
 
@@ -47,7 +47,7 @@ RSpec.feature "User deletes a book;", type: :feature do
     vote = FactoryGirl.create(:vote)
     user = vote.review.book.user
     sign_in(user)
-    click_link vote.review.book.title
+    find('img.book').click
     click_link "Edit Book"
     click_link "Delete Book"
 

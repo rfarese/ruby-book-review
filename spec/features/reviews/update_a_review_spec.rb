@@ -12,7 +12,8 @@ RSpec.feature "User updates a review", type: :feature do
   end
 
   def navigate_and_edit_review
-    click_link book.title
+    find('img.book').click
+
     click_link "Edit"
     fill_in "Title", with: "Edited Review Title"
     fill_in "Description", with: "Edited Review Description"

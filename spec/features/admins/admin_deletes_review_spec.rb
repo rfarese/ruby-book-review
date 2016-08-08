@@ -7,7 +7,7 @@ RSpec.feature "Admin deletes a review;", type: :feature do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     sign_in(admin)
-    click_link book.title
+    find('img.book').click
     click_link "Edit"
     click_link "Delete Review"
 

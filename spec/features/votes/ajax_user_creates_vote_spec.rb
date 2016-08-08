@@ -6,7 +6,8 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
-    click_link book.title
+    find('img.book').click
+
 
     expect(page).to have_link("Up Vote")
     expect(page).to have_link("Down Vote")
@@ -17,7 +18,8 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     book = Book.where(id: review.book_id).first
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     click_link "Up Vote"
     wait_for_ajax
     vote = Vote.all.first
@@ -35,7 +37,8 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     book = Book.where(id: review.book_id).first
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     click_link "Down Vote"
     wait_for_ajax
     vote = Vote.all.first
@@ -52,7 +55,8 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
-    click_link book.title
+    find('img.book').click
+
     click_link "Up Vote"
 
     expect(Vote.all.size).to eq(0)
@@ -63,7 +67,8 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     book = Book.where(id: review.book_id).first
     user = User.where(id: review.user_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     click_link "Up Vote"
 
     expect(Vote.all.size).to eq(0)
@@ -76,13 +81,13 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     user = FactoryGirl.create(:user)
     sign_in(user)
 
-    click_link review.book.title
+    find("a[href='/books/#{review.book.id}']").click
     within("#review_#{review.id}") do
       click_link "Up Vote"
     end
 
     visit root_path
-    click_link review.book.title
+    find("a[href='/books/#{review.book.id}']").click
     within("#review_#{second_review.id}") do
       click_link "Down Vote"
     end
@@ -104,10 +109,10 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     second_review = FactoryGirl.create(:review)
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link review.book.title
+    find("a[href='/books/#{review.book.id}']").click
     click_link "Up Vote"
     visit root_path
-    click_link second_review.book.title
+    find("a[href='/books/#{second_review.book.id}']").click
     click_link "Down Vote"
     wait_for_ajax
 

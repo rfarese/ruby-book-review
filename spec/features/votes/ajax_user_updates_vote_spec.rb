@@ -7,7 +7,8 @@ RSpec.feature "User updates a vote with an AJAX call;", type: :feature do
     review = Review.where(id: vote.review_id).first
     book = Book.where(id: review.book_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     wait_for_ajax
 
     expect(page).to have_link("Up Vote")
@@ -22,7 +23,8 @@ RSpec.feature "User updates a vote with an AJAX call;", type: :feature do
     review = Review.where(id: old_vote.review_id).first
     book = Book.where(id: review.book_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     click_link "Down Vote"
     wait_for_ajax
     vote = Vote.all.first
@@ -38,7 +40,8 @@ RSpec.feature "User updates a vote with an AJAX call;", type: :feature do
     review = Review.where(id: old_vote.review_id).first
     book = Book.where(id: review.book_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     click_link "Up Vote"
     wait_for_ajax
     vote = Vote.all.first
@@ -53,7 +56,8 @@ RSpec.feature "User updates a vote with an AJAX call;", type: :feature do
     review = Review.where(id: vote.review_id).first
     book = Book.where(id: review.book_id).first
     visit root_path
-    click_link book.title
+    find('img.book').click
+
     click_link "Down Vote"
     wait_for_ajax
 

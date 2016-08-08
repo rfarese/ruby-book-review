@@ -7,7 +7,8 @@ RSpec.feature "User ranks a book;", type: :feature do
   def unauth_navigate_to_book_details_page
     book
     visit root_path
-    click_link book.title
+    find('img.book').click
+
   end
 
   def navigate_and_choose_rank
@@ -32,7 +33,8 @@ RSpec.feature "User ranks a book;", type: :feature do
   scenario "An authenticated user successfully ranks a book", js: true do
     book
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     navigate_and_choose_rank
 
     expect(page).to have_content("Your book ranking has been saved!")

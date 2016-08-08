@@ -7,7 +7,8 @@ RSpec.feature "User deletes a book;", type: :feature do
   def unauth_navigate_to_book_details_page
     book
     visit root_path
-    click_link book.title
+    find('img.book').click
+
   end
 
   def navigate_and_choose_rank
@@ -21,7 +22,8 @@ RSpec.feature "User deletes a book;", type: :feature do
     book = Book.where(id: rank.book_id).first
     user = User.where(id: rank.user_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     click_link "Delete Rank"
 
     expect(page).to have_content("You've successfully deleted your book ranking")
@@ -40,7 +42,8 @@ RSpec.feature "User deletes a book;", type: :feature do
     book = Book.where(id: rank.book_id).first
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
 
     expect(page).to_not have_content("Delete Rank")
   end

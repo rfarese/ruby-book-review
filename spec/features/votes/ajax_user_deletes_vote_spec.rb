@@ -7,7 +7,8 @@ RSpec.feature "User deletes a vote with an AJAX call;", type: :feature do
     review = Review.where(id: vote.review_id).first
     book = Book.where(id: review.book_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
 
     expect(page).to have_link("Delete Vote")
   end
@@ -18,7 +19,8 @@ RSpec.feature "User deletes a vote with an AJAX call;", type: :feature do
     review = Review.where(id: vote.review_id).first
     book = Book.where(id: review.book_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
     click_link "Delete Vote"
     wait_for_ajax
 
@@ -33,7 +35,8 @@ RSpec.feature "User deletes a vote with an AJAX call;", type: :feature do
     review = Review.where(id: vote.review_id).first
     book = Book.where(id: review.book_id).first
     sign_in(user)
-    click_link book.title
+    find('img.book').click
+
 
     expect(page).to_not have_link("Delete Vote")
   end

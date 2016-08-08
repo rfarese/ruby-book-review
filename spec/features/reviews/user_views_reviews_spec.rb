@@ -12,7 +12,8 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
-    click_link book.title
+    find('img.book').click
+
 
     expect(page).to have_content("Book Reviews")
   end
@@ -21,7 +22,8 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
-    click_link book.title
+    find('img.book').click
+
 
     expect(page).to have_content(review.title)
     expect(page).to have_content(review.description)
@@ -31,7 +33,8 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     book = FactoryGirl.create(:book)
     reviews = add_reviews(book, 30)
     visit root_path
-    click_link book.title
+    find('img.book').click
+
 
     expect(page).to have_content(reviews.first.title)
     expect(page).to_not have_content(reviews[25].title)
@@ -41,7 +44,8 @@ RSpec.feature "User views all reviews associated with a book;", type: :feature d
     book = FactoryGirl.create(:book)
     reviews = add_reviews(book, 30)
     visit root_path
-    click_link book.title
+    find('img.book').click
+
     click_link "2"
 
     expect(page).to_not have_content(reviews.first.title)

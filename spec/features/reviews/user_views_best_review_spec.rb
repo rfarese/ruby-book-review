@@ -9,7 +9,7 @@ RSpec.feature "User views a books best review;", type: :feature do
     second_vote = FactoryGirl.create(:vote, review_id: review.id)
     third_vote = FactoryGirl.create(:vote, review_id: second_review.id)
     visit root_path
-    click_link review.book.title
+    find("a[href='/books/#{review.book.id}']").click
 
     expect(page).to have_content("Best Book Review")
     within("#best-book-review") do
@@ -24,7 +24,7 @@ RSpec.feature "User views a books best review;", type: :feature do
     review = FactoryGirl.create(:review)
     second_review = FactoryGirl.create(:review, book_id: review.book_id)
     visit root_path
-    click_link review.book.title
+    find("a[href='/books/#{review.book.id}']").click
 
     expect(page).to_not have_content("Best Book Review")
   end
@@ -34,7 +34,7 @@ RSpec.feature "User views a books best review;", type: :feature do
     second_review = FactoryGirl.create(:review, book_id: review.book_id)
     user = FactoryGirl.create(:user)
     sign_in(user)
-    click_link review.book.title
+    find("a[href='/books/#{review.book.id}']").click
 
     within("#review_#{review.id}") do
       click_link "Up Vote"
