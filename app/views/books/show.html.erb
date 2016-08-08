@@ -1,20 +1,32 @@
-<h1><%= @book.title %></h1>
+<div class="row">
 
-<%= image_tag @cover_photo if @book.cover_photo? %><br>
+  <div class="large-4 medium-6 small-12 columns">
+    <%= image_tag @cover_photo if @book.cover_photo? %>
+    <ul class="menu">
+      <% if user_signed_in? %>
+        <li><%= link_to "Edit Book", edit_book_path(@book), class: "edit-book" %></li>
+      <% end %>
+      <% if @rank %>
+        <li><%= link_to "Edit Rank", edit_book_rank_path(@book, @rank) %></li>
+        <li><%= link_to "Delete Rank", book_rank_path(@book, @rank), method: :delete %></li>
+      <% else %>
+      <li><%= link_to "Rank Book", new_book_rank_path(@book.id)%></li>
+      <% end %>
+    </ul>
+  </div>
 
-<ul class="menu">
-  <% if user_signed_in? %>
-    <li><%= link_to "Edit Book", edit_book_path(@book), class: "edit-book" %></li>
-  <% end %>
-  <% if @rank %>
-    <li><%= link_to "Edit Rank", edit_book_rank_path(@book, @rank) %></li>
-    <li><%= link_to "Delete Rank", book_rank_path(@book, @rank), method: :delete %></li>
-  <% else %>
-  <li><%= link_to "Rank Book", new_book_rank_path(@book.id)%></li>
-  <% end %>
-</ul>
+  <div class="large-8 medium-6 small-12 columns book-details">
+    <h4><%= @book.title %></h4>
+    <h5><%= @book.author %></h5>
+    <p><%= @book.description %></p>
+    <% if @book.ranks == [] %>
+      <h6>There is no average ranking for this book</h6>
+    <% else %>
+      <h6>Average Ranking: <%= @book.average_rank %></h6>
+    <% end %>
+  </div>
 
-<%= render 'book_details' %>
+</div>
 
 <% if @best_review %>
   <div id="best-book-review">
