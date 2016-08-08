@@ -6,6 +6,16 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV["SENDGRID_USERNAME"],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'https://sleepy-meadow-91200.herokuapp.com/',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   config.assets.js_compressor = :uglifier
