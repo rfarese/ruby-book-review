@@ -22,14 +22,13 @@ RSpec.feature "User searches for a book by title;", type: :feature do
     second_book = FactoryGirl.create(:book)
     visit_root_complete_search
 
-    expect(page).to have_content(book.title)
-    expect(page).to_not have_content(second_book.title)
+    expect(page).to have_css("a[href='/books/#{book.id}']")
   end
 
   scenario "User navigates from search results page to the books show page", js: true do
     book
     visit_root_complete_search
-    click_link book.title
+    find('img.book').click
 
     expect(page).to have_content(book.title)
     expect(page).to have_content(book.author)

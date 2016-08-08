@@ -19,6 +19,7 @@ class BooksController < ApplicationController
 
   def search
     @books = Book.where("title LIKE ?", params[:search]).page(params[:page])
+    render 'index'
   end
 
   def has_user_ranked_book?
