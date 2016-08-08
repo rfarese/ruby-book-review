@@ -2,13 +2,10 @@
 
 <%= image_tag @cover_photo if @book.cover_photo? %><br>
 
-<% if user_signed_in? %>
-  <%= link_to "Edit Book", edit_book_path(@book), class: "edit-book" %>
-<% end %>
-
-<%= render 'book_details' %>
-
-<ul>
+<ul class="menu">
+  <% if user_signed_in? %>
+    <li><%= link_to "Edit Book", edit_book_path(@book), class: "edit-book" %></li>
+  <% end %>
   <% if @rank %>
     <li><%= link_to "Edit Rank", edit_book_rank_path(@book, @rank) %></li>
     <li><%= link_to "Delete Rank", book_rank_path(@book, @rank), method: :delete %></li>
@@ -16,6 +13,8 @@
   <li><%= link_to "Rank Book", new_book_rank_path(@book.id)%></li>
   <% end %>
 </ul>
+
+<%= render 'book_details' %>
 
 <% if @best_review %>
   <div id="best-book-review">
