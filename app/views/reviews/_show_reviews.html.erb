@@ -19,15 +19,15 @@
       <td><%= review.description %></td>
 
       <% if !user_signed_in? %>
-        <td><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax", remote: true %></td>
-        <td><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax", remote: true %></td>
+        <td><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax button", remote: true %></td>
+        <td><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax button", remote: true %></td>
       <% elsif Vote.exists?(user_id: current_user.id, review_id: review.id) %>
-        <td><%= link_to "Up Vote", api_v1_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch, class: "up-vote-patch-ajax", remote: true %></td>
-        <td><%= link_to "Down Vote", api_v1_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch, class: "down-vote-patch-ajax", remote: true %></td>
-        <td><%= link_to "Delete Vote", api_v1_vote_path(review_id: review.id), method: :delete, class: "delete-vote-ajax", remote: true %></td>
+        <td><%= link_to "Up Vote", api_v1_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch, class: "up-vote-patch-ajax button", remote: true %></td>
+        <td><%= link_to "Down Vote", api_v1_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch, class: "down-vote-patch-ajax button", remote: true %></td>
+        <td><%= link_to "Delete Vote", api_v1_vote_path(review_id: review.id), method: :delete, class: "delete-vote-ajax button", remote: true %></td>
       <% else %>
-        <td><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax", remote: true %></td>
-        <td><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax", remote: true %></td>
+        <td><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax button", remote: true %></td>
+        <td><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax button", remote: true %></td>
       <% end %>
 
     <% end %>
