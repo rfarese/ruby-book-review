@@ -5,7 +5,7 @@ RSpec.feature "User recieves a 'new review' email alert;", type: :feature do
   let(:user) { FactoryGirl.create(:user) }
 
   def navigate_and_fill_in_review
-    find('img.book').click
+    find('img.books-index').click
 
     fill_in "Title", with: "This is a wonderful book!"
     fill_in "Description", with: "Even though its a little lengthy at times, the ending is awesome!"

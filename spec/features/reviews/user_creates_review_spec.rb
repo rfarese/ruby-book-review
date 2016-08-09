@@ -5,7 +5,7 @@ RSpec.feature "User creates a review", type: :feature do
   let(:user) { FactoryGirl.create(:user) }
 
   def navigate_and_fill_in_review
-    find('img.book').click
+    find('img.books-index').click
 
     fill_in "Title", with: "This is a wonderful book!"
     fill_in "Description", with: "Even though its a little lengthy at times, the ending is awesome!"
@@ -15,7 +15,7 @@ RSpec.feature "User creates a review", type: :feature do
   scenario "user views review creation section on the book details page", js: true do
     book
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to have_content("Add a Review")
@@ -43,7 +43,7 @@ RSpec.feature "User creates a review", type: :feature do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to have_content(review.title)

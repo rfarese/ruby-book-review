@@ -3,15 +3,21 @@
 // *= require foundation_and_overrides
 // *= require_self
 // *= require_tree .
+@import 'https://fonts.googleapis.com/css?family=Lato';
+@import 'https://fonts.googleapis.com/css?family=Droid+Serif';
 
 ul {
   list-style-type: none;
 }
 
-.book {
+.books-index {
   height: 350px;
   width: 250px;
   padding: 15px;
+}
+
+.book-show {
+  image-rendering: pixelated;
 }
 
 .footer {
@@ -22,4 +28,7 @@ ul {
 .book-details {
   position: relative;
   margin-top: 7.5%;
+}
+
+.new-book-cta {
 }

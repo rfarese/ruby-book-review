@@ -6,7 +6,7 @@ RSpec.feature "User posts a review to Twitter", type: :feature do
     book = FactoryGirl.create(:book)
     twitter_user = create_twitter_user
     sign_in_twitter_user(twitter_user)
-    find('img.book').click
+    find('img.books-index').click
 
     fill_in "Title", with: "I love POODR!"
     fill_in "Description", with: "Sandi gave us one hell of a 'gem'...when she wrote POODR!"

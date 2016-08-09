@@ -7,7 +7,7 @@ RSpec.feature "User edits a book rank;", type: :feature do
   def unauth_navigate_to_book_details_page
     book
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
   end
 
@@ -22,7 +22,7 @@ RSpec.feature "User edits a book rank;", type: :feature do
     book = Book.where(id: rank.book_id).first
     user = User.where(id: rank.user_id).first
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to have_content("Edit Rank")
@@ -33,7 +33,7 @@ RSpec.feature "User edits a book rank;", type: :feature do
     book = Book.where(id: rank.book_id).first
     user = User.where(id: rank.user_id).first
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Edit Rank"
     choose('rank_score_3')

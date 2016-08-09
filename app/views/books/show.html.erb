@@ -1,7 +1,7 @@
 <div class="row">
 
   <div class="large-4 medium-6 small-12 columns">
-    <%= image_tag @cover_photo if @book.cover_photo? %>
+    <%= image_tag @cover_photo, class: "book-show" if @book.cover_photo? %>
     <ul class="menu">
       <% if user_signed_in? %>
         <li><%= link_to "Edit Book", edit_book_path(@book), class: "edit-book" %></li>
@@ -16,13 +16,13 @@
   </div>
 
   <div class="large-8 medium-6 small-12 columns book-details">
-    <h4><%= @book.title %></h4>
-    <h5><%= @book.author %></h5>
+    <h3><%= @book.title %></h3>
+    <h4><%= @book.author %></h4>
     <p><%= @book.description %></p>
     <% if @book.ranks == [] %>
       <h6>There is no average ranking for this book</h6>
     <% else %>
-      <h6>Average Ranking: <%= @book.average_rank %></h6>
+      <h5>Average Ranking: <%= @book.average_rank %></h5>
     <% end %>
   </div>
 

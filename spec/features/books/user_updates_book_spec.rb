@@ -8,7 +8,7 @@ RSpec.feature "User updates a book;", type: :feature do
     book
     current_user = User.where(id: book.user_id).first
     sign_in(current_user)
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Edit Book"
   end
@@ -16,7 +16,7 @@ RSpec.feature "User updates a book;", type: :feature do
   scenario "authenticated user views link to navigate to the edit book page", js: true do
     book
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to have_content("Edit Book")
@@ -25,7 +25,7 @@ RSpec.feature "User updates a book;", type: :feature do
   scenario "unauthenticated user is unable to navigate to the edit book page", js: true do
     book
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to_not have_content("Edit Book")
@@ -45,7 +45,7 @@ RSpec.feature "User updates a book;", type: :feature do
   scenario "authenticated users id doesn't match the book's user id and receives an error message", js: true do
     book
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Edit Book"
 

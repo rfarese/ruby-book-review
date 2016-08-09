@@ -16,18 +16,4 @@ RSpec.feature "User uploads a book cover photo;", type: :feature do
     expect(page).to have_content("Practical Object Oriented Design in Ruby")
     expect(page).to have_css("img[src*='#{book.cover_photo.book_show.path}']")
   end
-
-  scenario "User doesn't view a photo if one isn't uploaded" do
-    user = FactoryGirl.create(:user)
-    sign_in(user)
-    first(:link, "Add Book").click
-    fill_in "Title", with: "Practical Object Oriented Design in Ruby"
-    fill_in "Author", with: "Sandy Metz"
-    fill_in "Description", with: "This is a book about creating flexible software to ensure maintainability"
-    click_button "Submit Book"
-    book = Book.all.first
-
-    expect(page).to have_content("Practical Object Oriented Design in Ruby")
-    expect(page).to_not have_css("img[src*='#{book.cover_photo.path}']")
-  end
 end

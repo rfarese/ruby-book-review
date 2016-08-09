@@ -6,7 +6,7 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to have_link("Up Vote")
@@ -18,7 +18,7 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     book = Book.where(id: review.book_id).first
     user = FactoryGirl.create(:user)
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Up Vote"
     wait_for_ajax
@@ -37,7 +37,7 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     book = Book.where(id: review.book_id).first
     user = FactoryGirl.create(:user)
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Down Vote"
     wait_for_ajax
@@ -55,7 +55,7 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     review = FactoryGirl.create(:review)
     book = Book.where(id: review.book_id).first
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Up Vote"
 
@@ -67,7 +67,7 @@ RSpec.feature "User creates a vote with an AJAX call;", type: :feature do
     book = Book.where(id: review.book_id).first
     user = User.where(id: review.user_id).first
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Up Vote"
 

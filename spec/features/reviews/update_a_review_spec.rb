@@ -12,7 +12,7 @@ RSpec.feature "User updates a review", type: :feature do
   end
 
   def navigate_and_edit_review
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Edit"
     fill_in "Title", with: "Edited Review Title"

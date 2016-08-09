@@ -7,7 +7,7 @@ RSpec.feature "User ranks a book;", type: :feature do
   def unauth_navigate_to_book_details_page
     book
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
   end
 
@@ -33,7 +33,7 @@ RSpec.feature "User ranks a book;", type: :feature do
   scenario "An authenticated user successfully ranks a book", js: true do
     book
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
     navigate_and_choose_rank
 

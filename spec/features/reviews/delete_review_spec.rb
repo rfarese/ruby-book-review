@@ -12,7 +12,7 @@ RSpec.feature "User deletes a review", type: :feature do
   end
 
   def navigate_and_delete_review
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Edit"
     click_link "Delete Review"
@@ -21,7 +21,7 @@ RSpec.feature "User deletes a review", type: :feature do
   scenario "review delete link is located on the review edit page", js: true do
     get_book_and_review
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Edit"
 

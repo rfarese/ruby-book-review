@@ -5,7 +5,7 @@ RSpec.feature "User views a books details", type: :feature do
   def navigate_to_book_page
     book = FactoryGirl.create(:book)
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
     book
   end
@@ -32,7 +32,7 @@ RSpec.feature "User views a books details", type: :feature do
     book = Book.where(id: rank.book_id).first
 
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to have_content("Average Ranking: 1.3")

@@ -7,7 +7,7 @@ RSpec.feature "User deletes a book;", type: :feature do
   def unauth_navigate_to_book_details_page
     book
     visit root_path
-    find('img.book').click
+    find('img.books-index').click
 
   end
 
@@ -22,7 +22,7 @@ RSpec.feature "User deletes a book;", type: :feature do
     book = Book.where(id: rank.book_id).first
     user = User.where(id: rank.user_id).first
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
     click_link "Delete Rank"
 
@@ -42,7 +42,7 @@ RSpec.feature "User deletes a book;", type: :feature do
     book = Book.where(id: rank.book_id).first
     user = FactoryGirl.create(:user)
     sign_in(user)
-    find('img.book').click
+    find('img.books-index').click
 
 
     expect(page).to_not have_content("Delete Rank")

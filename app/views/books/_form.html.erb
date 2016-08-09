@@ -14,14 +14,28 @@
     </div>
   <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :title, required: true, autofocus: true %>
-    <%= f.input :author, required: true %>
-    <%= f.input :description, as: :text, required: true, autofocus: true %>
-    <%= f.input :cover_photo, type: :file %>
-  </div>
+  <div class="row">
+    <div class="medium-4 columns">
+      <div class="form-inputs">
+        <%= f.input :title, required: true, autofocus: true %>
+        <%= f.input :author, required: true %>
+        <%= f.input :description, as: :text, required: true, autofocus: true %>
+        <%= f.input :cover_photo, type: :file %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Submit Book", class: "button" %>
+      <div class="actions">
+        <%= f.submit "Submit Book", class: "button" %>
+      </div>
+    </div>
+    <div class="medium-1 columns">
+    </div>
+    <div class="medium-7 columns new-book-cta">
+      <ul>
+        <li><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why Add a Book?</h3></li>
+        <li><%= image_tag('checked.svg', size: "50") %> &nbsp;&nbsp;&nbsp;Have others review the book before you read it</li>
+        <li><%= image_tag('checked.svg', size: "50") %> &nbsp;&nbsp;&nbsp;Understand which books are the most valueable to your career</li>
+        <li><%= image_tag('checked.svg', size: "50") %> &nbsp;&nbsp;&nbsp;Share your knowledge about a particular book to help other learners</li>
+      </ul>
+    </div>
   </div>
 <% end %>

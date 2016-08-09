@@ -28,7 +28,7 @@ RSpec.feature "User searches for a book by title;", type: :feature do
   scenario "User navigates from search results page to the books show page", js: true do
     book
     visit_root_complete_search
-    find('img.book').click
+    find('img.books-index').click
 
     expect(page).to have_content(book.title)
     expect(page).to have_content(book.author)
