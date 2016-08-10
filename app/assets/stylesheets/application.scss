@@ -6,6 +6,11 @@
 @import 'https://fonts.googleapis.com/css?family=Lato';
 @import 'https://fonts.googleapis.com/css?family=Droid+Serif';
 
+.main-content-section {
+  margin-left: 5%;
+  margin-right: 5%; 
+}
+
 ul {
   list-style-type: none;
 }
@@ -31,4 +36,14 @@ ul {
 }
 
 .new-book-cta {
+}
+
+.top-bar-right {
+  margin-top: 1.25%;
+}
+
+@media screen and (max-width: 40em){
+  #icon {
+    display: none;
+  }
 }

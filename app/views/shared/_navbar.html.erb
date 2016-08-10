@@ -1,13 +1,13 @@
 <nav>
   <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
-    <button class="menu-icon" type="button" data-toggle></button>
-    <div class="title-bar-title">Menu</div>
+    <button type="button" data-toggle><%= image_tag('notebook.svg', size: "75") %></button>
+    <div class="title-bar-title"></div>
   </div>
 
   <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
       <ul class="menu nav-links">
-        <li><%= image_tag('notebook.svg', size: "75") %></li>
+        <li id="icon"><%= image_tag('notebook.svg', size: "75") %></li>
         <li><%= link_to "Books", books_path %></li>
         <li><%= link_to "Add Book", new_book_path %></li>
         <% if user_signed_in? %>
