@@ -1,2 +1,51 @@
 <h1>Add a New Book</h1>
-<%= render 'form' %>
+
+<div class="row">
+
+  <div class="medium-4 columns">
+    <%= render 'form' %>
+  </div>
+
+  <div class="medium-1 columns"></div>
+
+  <div class="medium-7 columns general-cta">
+    <ul>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"></li>
+        </div>
+        <div class="small-10 columns">
+          <h3 class="cta-heading">Why Add a Book?</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"><%= image_tag('checked.svg', size: "50") %></li>
+        </div>
+        <div class="small-10 columns">
+          <p>Have others review the book before you read it</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"><%= image_tag('checked.svg', size: "50") %></li>
+        </div>
+        <div class="small-10 columns">
+          <p>Understand which books are the most valueable to your career</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"><%= image_tag('checked.svg', size: "50") %></li>
+        </div>
+        <div class="small-10 columns">
+          <p>Share your knowledge about a particular book to help other learners</p>
+        </div>
+      </div>
+    </ul>
+  </div>
+</div>

@@ -27,15 +27,46 @@
     <%= render "devise/shared/links" %>
   </div>
 
-  <div class="medium-1 columns">
-  </div>
+  <div class="medium-1 columns"></div>
 
-  <div class="medium-7 columns new-book-cta">
+  <div class="medium-7 columns general-cta">
     <ul>
-      <li><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ruby Book Reviews</h3></li>
-      <li><%= image_tag('checked.svg', size: "50") %> &nbsp;&nbsp;&nbsp;Add books about the Ruby programming language</li>
-      <li><%= image_tag('checked.svg', size: "50") %> &nbsp;&nbsp;&nbsp;Find the right books about Ruby to help advance your career</li>
-      <li><%= image_tag('checked.svg', size: "50") %> &nbsp;&nbsp;&nbsp;Share your knowledge with others and help them in their coding journey</li>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"></li>
+        </div>
+        <div class="small-10 columns">
+          <h3 class="cta-heading">Ruby Book Reviews</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"><%= image_tag('checked.svg', size: "50") %></li>
+        </div>
+        <div class="small-10 columns">
+          <p>Add books about the Ruby programming language</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"><%= image_tag('checked.svg', size: "50") %></li>
+        </div>
+        <div class="small-10 columns">
+          <p>Find the right books about Ruby to help advance your career</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-2 columns">
+          <li class="text-right"><%= image_tag('checked.svg', size: "50") %></li>
+        </div>
+        <div class="small-10 columns">
+          <p>Share your knowledge with others and help them in their coding journey</p>
+        </div>
+      </div>
     </ul>
   </div>
 </div>
