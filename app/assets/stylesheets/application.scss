@@ -32,7 +32,6 @@ ul {
 }
 
 .general-cta .cta-heading {
-  padding-top: 20px;
   margin-bottom: 16px;
 }
 
@@ -40,14 +39,28 @@ ul {
   margin-top: 1.25%;
 }
 
-@media screen and (max-width: 40em){
-  #icon {
-    display: none;
-  }
-}
-
 .notice, .alert {
   background-color: #EFCE4A;
   color: white;
   text-align: center;
+}
+
+@media screen and (max-width: 40em){
+  #icon {
+    display: none;
+  }
+
+  .general-cta {
+    margin-top: 50px;
+    margin-right: 15px;
+  }
+
+  .general-cta ul {
+    margin-left: 0;
+  }
+
+  h3.cta-heading {
+    float: left;
+    font-size: 24px;
+  }
 }
