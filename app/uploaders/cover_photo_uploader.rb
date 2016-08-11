@@ -12,7 +12,7 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
   end
 
   version :book_index do
-    process :resize_to_fit => [250, 350]
+    process :resize_to_fit => [200, 280]
   end
 
   version :book_show do

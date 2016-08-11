@@ -1,9 +1,11 @@
-<h1 class="text-center">Ruby Books</h1>
+<div class="small-12 small-centered columns">
+  <h1 class="text-center">Ruby Books</h1>
 
-<% @books.each do |book| %>
-  <a href="/books/<%= book.id %>">
-    <%= image_tag book.cover_photo.book_index.url, class: 'books-index' %>
-  </a>
-<% end %>
+  <% @books.each do |book| %>
+    <a href="/books/<%= book.id %>">
+      <%= image_tag book.cover_photo.book_index.url, class: 'books-index' %>
+    </a>
+  <% end %>
 
-<%= paginate @books %>
+  <%= paginate @books %>
+</div>
