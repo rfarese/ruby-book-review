@@ -35,4 +35,77 @@
   </tbody>
 </table>
 
+<section>
+  <% @reviews.each do |review| %>
+    <ul class="menu" id="<%= dom_id(review) %>">
+
+      <div class="row">
+        <div class="small-1 columns">
+          <li><%= link_to "Edit", edit_book_review_path(@book, review) %></li>
+        </div>
+        <div class="small-7 columns">
+          <li><%= review.title %></li>
+        </div>
+
+        <!-- add voting links here -->
+        <div class="small-4 columns">
+          <% if !user_signed_in? %>
+
+            <div class="row">
+              <div class="small-4 columns">
+                <li><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax button", remote: true %></li>
+              </div>
+
+              <div class="small-4 columns">
+                <li><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax button", remote: true %></li>
+              </div>
+
+              <div class="small-4 columns"></div>
+            </div>
+
+          <% elsif Vote.exists?(user_id: current_user.id, review_id: review.id) %>
+
+            <div class="row">
+              <div class="small-4 columns">
+                <li><%= link_to "Up Vote", api_v1_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch, class: "up-vote-patch-ajax button", remote: true %></li>
+              </div>
+
+              <div class="small-4 columns">
+                <li><%= link_to "Down Vote", api_v1_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch, class: "down-vote-patch-ajax button", remote: true %></li>
+              </div>
+
+              <div class="small-4 columns">
+                <li><%= link_to "Delete Vote", api_v1_vote_path(review_id: review.id), method: :delete, class: "delete-vote-ajax button", remote: true %></li>
+              </div>
+            </div>
+
+          <% else %>
+
+            <div class="row">
+              <div class="small-4 columns">
+                <li><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax button", remote: true %></li>
+              </div>
+
+              <div class="small-4 columns">
+                <li><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax button", remote: true %></li>
+              </div>
+
+              <div class="small-4 columns"></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns">
+          <li><button class="button" id="review-description">Read The Review</button></li>
+          <li><%= review.description %></li>
+        </div>
+      </div>
+
+    </ul>
+  <% end %>
+</section>
+
+
 <%= paginate @reviews %>
