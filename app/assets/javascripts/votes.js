@@ -4,12 +4,13 @@ $(document).ready(function() {
 
     var upVoteLink = this;
     var href = $(this).attr("href");
-    var reviewElement = $(this).closest('tr');
+    var reviewElement = $(this).closest('ul');
     var downVoteLink = reviewElement.find(".down-vote-post-ajax");
     var reviewId = $(reviewElement).attr('id').replace("review_", "");
     var bookEditLink = $(".edit-book").attr("href");
     var bookId = bookEditLink.replace("/books/", "").replace("/edit", "");
     var deleteHref = "/api/v1/votes/" + bookId + "?review_id=" + reviewId
+    var deleteButtonDiv = $(reviewElement).find('.delete-button');
 
     var request = $.ajax( {
       method: "POST",
@@ -19,13 +20,12 @@ $(document).ready(function() {
     request.done(function(data) {
       $("#voting-message").empty();
       $("#voting-message").append(data.message);
-      $(upVoteLink).removeClass("up-vote-post-ajax button").addClass('up-vote-patch-ajax button');
+      $(upVoteLink).removeClass("up-vote-post-ajax button vote-button").addClass('up-vote-patch-ajax button vote-button');
       $(upVoteLink).attr("data-method", "patch");
-      $(downVoteLink).removeClass("down-vote-post-ajax button").addClass("down-vote-patch-ajax button");
+      $(downVoteLink).removeClass("down-vote-post-ajax button vote-button").addClass("down-vote-patch-ajax button vote-button");
       $(downVoteLink).attr("data-method", "patch");
       if ( data.vote === true ) {
-        $(reviewElement).append("<td><a class='delete-vote-ajax button' data-remote='true' rel='nofollow' data-method='delete' href=" + deleteHref + ">Delete Vote</a></td>");
-        $("table thead tr").append("<th></th>");
+        $(deleteButtonDiv).append("<li><a class='delete-vote-ajax button vote-button' data-remote='true' rel='nofollow' data-method='delete' href=" + deleteHref + ">Delete Vote</a></li>");
       }
     });
   });
@@ -35,12 +35,13 @@ $(document).ready(function() {
 
     var href = $(this).attr("href");
     var downVoteLink = this;
-    var reviewElement = $(this).closest('tr');
+    var reviewElement = $(this).closest('ul');
     var upVoteLink = reviewElement.find(".up-vote-post-ajax");
     var reviewId = $(reviewElement).attr('id').replace("review_", "");
     var bookEditLink = $(".edit-book").attr("href");
     var bookId = bookEditLink.replace("/books/", "").replace("/edit", "");
     var deleteHref = "/api/v1/votes/" + bookId + "?review_id=" + reviewId
+    var deleteButtonDiv = $(reviewElement).find('.delete-button');
 
     var request = $.ajax( {
       method: "POST",
@@ -50,13 +51,12 @@ $(document).ready(function() {
     request.done(function(data) {
       $("#voting-message").empty();
       $("#voting-message").append(data.message);
-      $(upVoteLink).removeClass("up-vote-post-ajax button").addClass('up-vote-patch-ajax button');
+      $(upVoteLink).removeClass("up-vote-post-ajax button vote-button").addClass('up-vote-patch-ajax button vote-button');
       $(upVoteLink).attr("data-method", "patch");
-      $(downVoteLink).removeClass("down-vote-post-ajax button").addClass("down-vote-patch-ajax button");
+      $(downVoteLink).removeClass("down-vote-post-ajax button vote-button").addClass("down-vote-patch-ajax button vote-button");
       $(downVoteLink).attr("data-method", "patch");
       if ( data.vote === true ) {
-        $(reviewElement).append("<td><a class='delete-vote-ajax button' data-remote='true' rel='nofollow' data-method='delete' href=" + deleteHref + ">Delete Vote</a></td>");
-        $("table thead tr").append("<th></th>");
+        $(deleteButtonDiv).append("<li><a class='delete-vote-ajax button vote-button' data-remote='true' rel='nofollow' data-method='delete' href=" + deleteHref + ">Delete Vote</a></li>");
       }
     });
   });
@@ -96,7 +96,7 @@ $(document).ready(function() {
   $("body").on("click", ".delete-vote-ajax", function(event) {
     event.preventDefault();
 
-    var reviewElement = $(this).closest('tr');
+    var reviewElement = $(this).closest('ul');
     var deleteLink = this;
     var href = $(this).attr("href");
     var downVoteLink = reviewElement.find(".down-vote-patch-ajax");
@@ -111,9 +111,9 @@ $(document).ready(function() {
       $("#voting-message").empty();
       $("#voting-message").append(data.message);
       $(deleteLink).remove();
-      $(upVoteLink).removeClass("up-vote-patch-ajax button").addClass('up-vote-post-ajax button');
+      $(upVoteLink).removeClass("up-vote-patch-ajax button vote-button").addClass('up-vote-post-ajax button vote-button');
       $(upVoteLink).attr("data-method", "post");
-      $(downVoteLink).removeClass("down-vote-patch-ajax button").addClass("down-vote-post-ajax button");
+      $(downVoteLink).removeClass("down-vote-patch-ajax button vote-button").addClass("down-vote-post-ajax button vote-button");
       $(downVoteLink).attr("data-method", "post");
     });
   });
