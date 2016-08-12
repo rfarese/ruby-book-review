@@ -27,7 +27,8 @@ RSpec.feature "User ranks a book;", type: :feature do
     unauth_navigate_to_book_details_page
     click_link "Rank Book"
 
-    expect(page).to have_content("Rank #{book.title}")
+    expect(page).to have_content(book.title)
+    expect(page).to have_content("Create a Rank")
   end
 
   scenario "An authenticated user successfully ranks a book", js: true do

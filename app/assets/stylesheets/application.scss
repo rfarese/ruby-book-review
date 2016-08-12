@@ -71,6 +71,26 @@ ul {
   margin-top: 1em;
 }
 
+.rank_score {
+  display: -webkit-box;
+}
+
+.radio_buttons {
+  padding-right: 1em;
+}
+
+.radio {
+  padding-right: 1em;
+}
+
+.rank-form-container {
+  margin-top: 5%;
+}
+
+abbr {
+  display: none;
+}
+
 // large screens
 @media screen and (min-width: 64.063em) {
 
