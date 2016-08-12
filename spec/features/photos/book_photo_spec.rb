@@ -13,7 +13,7 @@ RSpec.feature "User uploads a book cover photo;", type: :feature do
     click_button "Submit Book"
     book = Book.all.first
 
-    expect(page).to have_content("Practical Object Oriented Design in Ruby")
+    expect(page).to have_content(book.title.upcase)
     expect(page).to have_css("img[src*='#{book.cover_photo.book_show.path}']")
   end
 end

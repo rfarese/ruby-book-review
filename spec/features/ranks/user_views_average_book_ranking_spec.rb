@@ -38,6 +38,6 @@ RSpec.feature "User views average book rank;", type: :feature do
     find('img.books-index').click
 
 
-    expect(page).to have_content("There is no average ranking for this book")
+    expect(page).to_not have_content("Average Ranking")
   end
 end

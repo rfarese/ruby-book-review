@@ -30,7 +30,7 @@ RSpec.feature "User searches for a book by title;", type: :feature do
     visit_root_complete_search
     find('img.books-index').click
 
-    expect(page).to have_content(book.title)
+    expect(page).to have_content(book.title.upcase)
     expect(page).to have_content(book.author)
     expect(page).to have_content(book.description)
   end

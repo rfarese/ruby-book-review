@@ -20,7 +20,7 @@ RSpec.feature "User views a books details", type: :feature do
   scenario "user views details about book", js: true do
     book = navigate_to_book_page
 
-    expect(page).to have_content(book.title)
+    expect(page).to have_content(book.title.upcase)
     expect(page).to have_content(book.author)
     expect(page).to have_content(book.description)
   end
