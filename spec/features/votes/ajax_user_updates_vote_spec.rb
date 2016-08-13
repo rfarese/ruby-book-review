@@ -32,6 +32,7 @@ RSpec.feature "User updates a vote with an AJAX call;", type: :feature do
     expect(Vote.all.size).to eq(1)
     expect(vote.up_vote).to eq(false)
     expect(vote.down_vote).to eq(true)
+    expect(page).to have_content("You've successfully updated your vote")
   end
 
   scenario "User successfully updates a vote from 'down vote' to 'up vote'", js: true do

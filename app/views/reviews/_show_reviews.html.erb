@@ -39,10 +39,12 @@
 
             <div class="row">
               <div class="small-4 medium-3 large-4 columns">
+                <!-- need to pass in the vote id here -->
                 <li><%= link_to "Up Vote", api_v1_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch, class: "up-vote-patch-ajax button vote-button", remote: true %></li>
               </div>
 
               <div class="small-4 medium-3 large-4 columns">
+                <!-- need to pass in the vote id here -->
                 <li><%= link_to "Down Vote", api_v1_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch, class: "down-vote-patch-ajax button vote-button", remote: true %></li>
               </div>
 

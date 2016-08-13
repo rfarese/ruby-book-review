@@ -16,6 +16,34 @@ function changeVotingMessage(message) {
   $("#voting-message").append(message);
 }
 
+function getCurrentDataMethod(dataMethod) {
+  var currentDataMethod = "";
+
+  if (dataMethod === 'post') {
+    currentDataMethod = 'patch';
+  } else {
+    currentDataMethod = 'post';
+  }
+  return currentDataMethod
+}
+
+function addRemoveClass(upVote, downVote, dataMethod) {
+  var currentDataMethod = getCurrentDataMethod(dataMethod);
+
+  $(upVote).removeClass("up-vote-" + currentDataMethod + "-ajax button vote-button").addClass("up-vote-" + dataMethod + "-ajax button vote-button");
+  $(upVote).attr("data-method", dataMethod);
+  $(downVote).removeClass("down-vote-" + currentDataMethod + "-ajax button vote-button").addClass("down-vote-" + dataMethod + "-ajax button vote-button");
+  $(downVote).attr("data-method", dataMethod);
+}
+
+function addDeleteButton(deleteButtonDiv, deleteHref) {
+  var string = "<li><a class='delete-vote-ajax button vote-button'"
+  string +=  "data-remote='true' rel='nofollow' data-method='delete' href="
+  string += deleteHref
+  string += ">Delete Vote</a></li>"
+  $(deleteButtonDiv).append(string);
+}
+
 
 $(document).ready(function() {
   $("body").on("click", ".up-vote-post-ajax", function(event) {
@@ -30,12 +58,11 @@ $(document).ready(function() {
 
     request.done(function(data) {
       changeVotingMessage(data.message);
-      $(newVoteData.vote).removeClass("up-vote-post-ajax button vote-button").addClass('up-vote-patch-ajax button vote-button');
-      $(newVoteData.vote).attr("data-method", "patch");
-      $(newVoteData.nonVoteLink).removeClass("down-vote-post-ajax button vote-button").addClass("down-vote-patch-ajax button vote-button");
-      $(newVoteData.nonVoteLink).attr("data-method", "patch");
+      // need to get the vote object and pass in the vote id to properly recreate the patch url...
+      // remember this also has to be done on the server side in the _show_reviews.html.erb
+      addRemoveClass(newVoteData.vote, newVoteData.nonVoteLink, "patch");
       if ( data.vote === true ) {
-        $(newVoteData.deleteButtonDiv).append("<li><a class='delete-vote-ajax button vote-button' data-remote='true' rel='nofollow' data-method='delete' href=" + newVoteData.deleteHref + ">Delete Vote</a></li>");
+        addDeleteButton(newVoteData.deleteButtonDiv, newVoteData.deleteHref);
       }
     });
   });
@@ -52,12 +79,11 @@ $(document).ready(function() {
 
     request.done(function(data) {
       changeVotingMessage(data.message);
-      $(newVoteData.nonVoteLink).removeClass("up-vote-post-ajax button vote-button").addClass('up-vote-patch-ajax button vote-button');
-      $(newVoteData.nonVoteLink).attr("data-method", "patch");
-      $(newVoteData.vote).removeClass("down-vote-post-ajax button vote-button").addClass("down-vote-patch-ajax button vote-button");
-      $(newVoteData.vote).attr("data-method", "patch");
+      // need to get the vote object and pass in the vote id to properly recreate the patch url...
+      // remember this also has to be done on the server side in the _show_reviews.html.erb
+      addRemoveClass(newVoteData.nonVoteLink, newVoteData.vote, "patch");
       if ( data.vote === true ) {
-        $(newVoteData.deleteButtonDiv).append("<li><a class='delete-vote-ajax button vote-button' data-remote='true' rel='nofollow' data-method='delete' href=" + newVoteData.deleteHref + ">Delete Vote</a></li>");
+        addDeleteButton(newVoteData.deleteButtonDiv, newVoteData.deleteHref);
       }
     });
   });
@@ -103,12 +129,9 @@ $(document).ready(function() {
     });
 
     request.done(function(data) {
-      changeVotingMessage(data.message); 
+      changeVotingMessage(data.message);
       $(newVoteData.vote).remove();
-      $(newVoteData.nonVoteLink).removeClass("up-vote-patch-ajax button vote-button").addClass('up-vote-post-ajax button vote-button');
-      $(newVoteData.nonVoteLink).attr("data-method", "post");
-      $(newVoteData.thirdVoteLink).removeClass("down-vote-patch-ajax button vote-button").addClass("down-vote-post-ajax button vote-button");
-      $(newVoteData.thirdVoteLink).attr("data-method", "post");
+      addRemoveClass(newVoteData.nonVoteLink, newVoteData.thirdVoteLink, "post");
     });
   });
 });
