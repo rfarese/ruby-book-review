@@ -19,37 +19,35 @@
           <li><%= review.description %></li>
         </div>
 
-        <!-- add voting links here -->
         <div class="small-12 medium-12 large-5 columns">
           <% if !user_signed_in? %>
 
             <div class="row">
               <div class="small-4 medium-3 large-4 columns">
-                <li><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax button vote-button", remote: true %></li>
+                <li><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), class: "up-vote-post-ajax button vote-button", data: { type: :json } %></li>
               </div>
 
               <div class="small-4 medium-3 large-4 columns">
-                <li><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax button vote-button", remote: true %></li>
+                <li><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), class: "down-vote-post-ajax button vote-button", data: { type: :json } %></li>
               </div>
 
               <div class="small-4 medium-6 large-4 columns delete-button"></div>
             </div>
 
-          <% elsif Vote.exists?(user_id: current_user.id, review_id: review.id) %>
+          <% elsif review.has_user_voted?(current_user) %>
+            <% vote = review.vote_by_current_user(current_user) %>
 
             <div class="row">
               <div class="small-4 medium-3 large-4 columns">
-                <!-- need to pass in the vote id here -->
-                <li><%= link_to "Up Vote", api_v1_vote_path(review_id: review.id, up_vote: true, down_vote: false), method: :patch, class: "up-vote-patch-ajax button vote-button", remote: true %></li>
+                <li><%= link_to "Up Vote", api_v1_vote_path(id: vote.id, review_id: review.id, up_vote: true, down_vote: false), class: "up-vote-patch-ajax button vote-button", data: { type: :json } %></li>
               </div>
 
               <div class="small-4 medium-3 large-4 columns">
-                <!-- need to pass in the vote id here -->
-                <li><%= link_to "Down Vote", api_v1_vote_path(review_id: review.id, up_vote: false, down_vote: true), method: :patch, class: "down-vote-patch-ajax button vote-button", remote: true %></li>
+                <li><%= link_to "Down Vote", api_v1_vote_path(id: vote.id, review_id: review.id, up_vote: false, down_vote: true), class: "down-vote-patch-ajax button vote-button", data: { type: :json } %></li>
               </div>
 
               <div class="small-4 medium-6 large-4 columns delete-button">
-                <li><%= link_to "Delete Vote", api_v1_vote_path(review_id: review.id), method: :delete, class: "delete-vote-ajax button vote-button", remote: true %></li>
+                <li><%= link_to "Delete Vote", api_v1_vote_path(review_id: review.id), class: "delete-vote-ajax button vote-button", data: { type: :json } %></li>
               </div>
             </div>
 
@@ -57,11 +55,11 @@
 
             <div class="row">
               <div class="small-4 medium-3 large-4 columns">
-                <li><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), method: :post, class: "up-vote-post-ajax button vote-button", remote: true %></li>
+                <li><%= link_to "Up Vote", api_v1_votes_path(review_id: review.id, up_vote: true, down_vote: false), class: "up-vote-post-ajax button vote-button", data: { type: :json } %></li>
               </div>
 
               <div class="small-4 medium-3 large-4 columns">
-                <li><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), method: :post, class: "down-vote-post-ajax button vote-button", remote: true %></li>
+                <li><%= link_to "Down Vote", api_v1_votes_path(review_id: review.id, up_vote: false, down_vote: true), class: "down-vote-post-ajax button vote-button", data: { type: :json } %></li>
               </div>
 
               <div class="small-4 medium-6 large-4 columns delete-button"></div>

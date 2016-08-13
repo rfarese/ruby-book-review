@@ -26,7 +26,7 @@ class Review < ActiveRecord::Base
   end
 
   def has_user_voted?(user)
-    Vote.where(user_id: user.id, review_id: self.id)
+    Vote.exists?(user_id: user.id, review_id: self.id)
   end
 
   def build_tweet
@@ -42,5 +42,9 @@ class Review < ActiveRecord::Base
         config.access_token_secret = ENV["TWITTER_TOKEN_SECRET"]
     end
     client.update(build_tweet)
+  end
+
+  def vote_by_current_user(user)
+    Vote.where(user_id: user.id, review_id: self.id).first 
   end
 end

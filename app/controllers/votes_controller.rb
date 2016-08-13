@@ -64,7 +64,6 @@ class VotesController < ApplicationController
     redirect_to new_review_vote_path(@review)
   end
 
-
   def do_user_ids_match_destroy(review, vote)
     if current_user.id == vote.user_id
       vote.destroy

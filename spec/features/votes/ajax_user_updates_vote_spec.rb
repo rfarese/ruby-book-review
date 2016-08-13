@@ -54,15 +54,15 @@ RSpec.feature "User updates a vote with an AJAX call;", type: :feature do
 
   scenario "An unauthenticated user unsuccessfully attempts to update a vote", js: true do
     vote = FactoryGirl.create(:vote)
-    review = Review.where(id: vote.review_id).first
-    book = Book.where(id: review.book_id).first
+    review = vote.review
+    book = review.book
     visit root_path
     find('img.books-index').click
 
     click_link "Down Vote"
     wait_for_ajax
 
-    new_vote = Vote.where(id: vote.id).first
+    new_vote = Vote.find(vote.id)
 
     expect(new_vote).to eq(vote)
     expect(new_vote.up_vote).to eq(true)

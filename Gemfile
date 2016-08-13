@@ -15,7 +15,6 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog-aws'
-gem 'react-rails'
 gem 'omniauth-twitter'
 gem 'twitter'
 
