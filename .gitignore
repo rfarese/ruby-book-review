@@ -20,3 +20,6 @@
 
 # Ignore uploaded files in test/development
 /public/uploads
+
+# Ignore secrets.yml
+/config/secrets.yml 
